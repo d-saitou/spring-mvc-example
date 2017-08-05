@@ -1,4 +1,5 @@
 # Spring4 MVCサンプルアプリケーション
+\* [英語版](/README.md)
 
 ## 1. 概要
 本プロジェクトは、Spring Frameworkを利用したWebアプリケーションサンプルのMavenプロジェクトです。
@@ -35,20 +36,15 @@
 ### 4.1. 実行環境
 以下ソフトウェアをインストールしてください。
 
+* Application server (Tomcat等)
 * MySQL
 * Lombok (開発環境のみ。必須)
 * Spring Tool Suite (開発環境のみ。必要に応じて)
 
-### 4.2. データベース作成
-以下コマンドを実行してMySQLにデータベースを作成してください。
+### 4.2. アプリケーション設定変更
+設定ファイルの以下パラメータを変更してください。
 
-  ```
-  mysql -u [ユーザ] -p[パスワード] < [プロジェクトルート]/data/db/spring4example.sql
-  ```
-
-### 4.3. アプリケーション設定変更
-設定ファイルapplication.propertiesのパラメータを変更してください。
-
+* [application.properties](/src/main/resources/application.properties)
 | パラメータ    | 説明                                   |
 |:--------------|:---------------------------------------|
 | app.datadir   | ファイル格納場所(ログ・一時ファイル他) |
@@ -56,3 +52,18 @@
 | jdbc.username | DB接続時ユーザ名                       |
 | jdbc.password | DB接続時パスワード                     |
 | javax.mail.\* | メール送信設定                         |
+
+* [web.xml](/src/main/webapp/WEB-INF/web.xml)
+| パラメータ                                | 説明                 |
+|:------------------------------------------|:---------------------|
+| <servlet>\-<multipart-config>\-<location> | 一時ファイル格納場所 |
+
+### 4.3. ビルド及びデプロイ
+開発環境でビルドを行い、アプリケーションをデプロイしてください。
+
+### 4.4. データベース作成
+MySQLにデータベースを作成するため、以下のコマンドで[SQL](/data/db/spring4example.sql)を実行してください。
+
+  ```
+  mysql -u [ユーザ] -p[パスワード] < [プロジェクトルート]/data/db/spring4example.sql
+  ```

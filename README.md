@@ -1,4 +1,5 @@
 # Spring4 MVC example application
+\* [Japanese version](/README.ja.md)
 
 ## 1. Overview
 This project is Maven project of Web application example using Spring Framework.
@@ -35,20 +36,15 @@ In order to run this application, the following settings are required.
 ### 4.1. Executive environment
 Install the following software.
 
+* Application server (Tomcat etc.)
 * MySQL
 * Lombok (Development environment only. Required)
 * Spring Tool Suite (Development environment only. If necessary)
 
-### 4.2. Create database
-Execute the following command to create a database in MySQL.
+### 4.2. Change application config
+Change the following parameters of the configuration file.
 
-  ```
-  mysql -u [user] -p[password] < [project root]/data/db/spring4example.sql
-  ```
-
-### 4.3. Change application config
-Change the parameter of the configuration file application.properties.
-
+* [application.properties](/src/main/resources/application.properties)
 | Paramater Name | Description                                        |
 |:---------------|:---------------------------------------------------|
 | app.datadir    | Files storage location (log, temporary file, etc.) |
@@ -56,3 +52,18 @@ Change the parameter of the configuration file application.properties.
 | jdbc.username  | Database user name                                 |
 | jdbc.password  | Database password                                  |
 | javax.mail.\*  | E\-mail config                                     |
+
+* [web.xml](/src/main/webapp/WEB-INF/web.xml)
+| Paramater Name                            | Description                      |
+|:------------------------------------------|:---------------------------------|
+| <servlet>\-<multipart-config>\-<location> | Temporary files storage location |
+
+### 4.3. Build and deploy
+Build in the development environment and deploy the application.
+
+### 4.4. Create database
+To create a database in MySQL, execute [SQL](/data/db/spring4example.sql) with the following command.
+
+  ```
+  mysql -u [user] -p[password] < [project root]/data/db/spring4example.sql
+  ```
