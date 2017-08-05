@@ -45,6 +45,7 @@ Install the following software.
 Change the following parameters of the configuration file.
 
 * [application.properties](/src/main/resources/application.properties)
+
 | Paramater Name | Description                                        |
 |:---------------|:---------------------------------------------------|
 | app.datadir    | Files storage location (log, temporary file, etc.) |
@@ -54,6 +55,7 @@ Change the following parameters of the configuration file.
 | javax.mail.\*  | E\-mail config                                     |
 
 * [web.xml](/src/main/webapp/WEB-INF/web.xml)
+
 | Paramater Name                            | Description                      |
 |:------------------------------------------|:---------------------------------|
 | <servlet>\-<multipart-config>\-<location> | Temporary files storage location |

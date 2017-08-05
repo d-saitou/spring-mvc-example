@@ -45,6 +45,7 @@
 設定ファイルの以下パラメータを変更してください。
 
 * [application.properties](/src/main/resources/application.properties)
+
 | パラメータ    | 説明                                   |
 |:--------------|:---------------------------------------|
 | app.datadir   | ファイル格納場所(ログ・一時ファイル他) |
@@ -54,6 +55,7 @@
 | javax.mail.\* | メール送信設定                         |
 
 * [web.xml](/src/main/webapp/WEB-INF/web.xml)
+
 | パラメータ                                | 説明                 |
 |:------------------------------------------|:---------------------|
 | <servlet>\-<multipart-config>\-<location> | 一時ファイル格納場所 |
