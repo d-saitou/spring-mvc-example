@@ -60,7 +60,9 @@ public class FileUploadController {
 		String message = null;
 		if (result.hasErrors()) {
 			message = msg.getMessage("FileUpload.msg.failed", null, locale);
-		} else if (null != file) {
+		} else if (file.getOriginalFilename().length() == 0) {
+			message = msg.getMessage("FileUpload.msg.notselect", null, locale);
+		} else {
 			// Save upload file
 			try {
 				this.fileDao.save(file);
@@ -72,10 +74,9 @@ public class FileUploadController {
 				log.error("An exception occurred when saving file.");
 				throw e;	// Exceptions are handled by GlobalExceptionHandler class.
 			}
-		} else {
-			message = msg.getMessage("FileUpload.msg.notselect", null, locale);
 		}
 		model.addAttribute("message", message);
+		
 		return "contents/FileUpload";
 	}
 	
@@ -97,13 +98,19 @@ public class FileUploadController {
 		
 		List<MultipartFile> files = form.getFiles();
 		String message = null;
+		int savedFileCount = 0;
+		
 		if (result.hasErrors()) {
 			message = msg.getMessage("FileUpload.msg.failed", null, locale);
 		} else if ((null != files) && (files.size() > 0)) {
 			// Save upload file
 			for (MultipartFile file : files) {
+				if (file.getOriginalFilename().length() == 0) {
+					continue;
+				}
 				try {
 					this.fileDao.save(file);
+					savedFileCount++;
 				} catch (IllegalStateException e) {
 					log.error("An exception occurred when saving file.");
 					throw e;	// Exceptions are handled by GlobalExceptionHandler class.
@@ -112,11 +119,16 @@ public class FileUploadController {
 					throw e;	// Exceptions are handled by GlobalExceptionHandler class.
 				}
 			}
-			message = msg.getMessage("FileUpload.msg.success", null, locale);
+			if (savedFileCount > 0) {
+				message = msg.getMessage("FileUpload.msg.success", null, locale);
+			} else {
+				message = msg.getMessage("FileUpload.msg.notselect", null, locale);
+			}
 		} else {
 			message = msg.getMessage("FileUpload.msg.notselect", null, locale);
 		}
 		model.addAttribute("message", message);
+		
 		return "contents/FileUpload";
 	}
 	
