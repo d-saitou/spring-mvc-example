@@ -30,7 +30,7 @@
 	
 	<div id="login-box">
 		<%-- Login form --%>
-		<form name="f" action="login" method="POST">
+		<form:form action="${contextPath}/login">
 			<div class="login-form-box">
 				<div class="login-form-box1">
 					<spring:message code="login.text.userid"/>&nbsp;:&nbsp;
@@ -48,10 +48,9 @@
 				</div>
 			</div>
 			<form:errors path="*" />
-			<spring:message code="login.button.login" var="loginbtn" />
-			<input name="submit" type="submit" value="${loginbtn}"/>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		</form>
+			<spring:message code="login.button.login" var="loginBtn" />
+			<button type="submit">${loginBtn}</button>
+		</form:form>
 		<%-- Display user list --%>
 		<table class="table-style">
 			<thead>

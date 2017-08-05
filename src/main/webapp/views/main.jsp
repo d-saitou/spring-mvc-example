@@ -24,7 +24,7 @@
 		<div id="headerbox3">
 			<form:form action="${contextPath}/logout">
 				<spring:message code="main.button.logout" var="logoutBtn" />
-				<input name="submit" type="submit" value="${logoutBtn}"/>
+				<button type="submit">${logoutBtn}</button>
 			</form:form>
 		</div>
 	</div>

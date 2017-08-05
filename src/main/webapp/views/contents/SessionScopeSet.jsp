@@ -26,9 +26,9 @@
 		</table>
 		<div class="button-area">
 			<spring:message code="contents.button.reset" var="resetBtn" />
-			<input type="reset" value="${resetBtn}">
+			<button type="reset">${resetBtn}</button>
 			<spring:message code="contents.button.register" var="registerBtn" />
-			<input type="submit" value="${registerBtn}">
+			<button type="submit">${registerBtn}</button>
 		</div>
 	</form:form>
 	

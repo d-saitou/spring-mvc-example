@@ -42,9 +42,9 @@
 		</table>
 		<div class="button-area">
 			<spring:message code="contents.button.reset" var="resetBtn" />
-			<input type="reset" value="${resetBtn}">
+			<button type="reset">${resetBtn}</button>
 			<spring:message code="AsyncMail.button.send" var="sendBtn" />
-			<input type="submit" value="${sendBtn}">
+			<button type="submit">${sendBtn}</button>
 		</div>
 	</form:form>
 	
