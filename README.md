@@ -56,9 +56,9 @@ Change the following parameters of the configuration file.
 
 * [web.xml](/src/main/webapp/WEB-INF/web.xml)
 
-| Paramater Name                            | Description                      |
-|:------------------------------------------|:---------------------------------|
-| <servlet>\-<multipart-config>\-<location> | Temporary files storage location |
+| Paramater Name                                               | Description                      |
+|:-------------------------------------------------------------|:---------------------------------|
+| &lt;servlet&gt;\-&lt;multipart\-config&gt;\-&lt;location&gt; | Temporary files storage location |
 
 ### 4.3. Build and deploy
 Build in the development environment and deploy the application.
