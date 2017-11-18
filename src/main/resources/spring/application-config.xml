@@ -82,13 +82,13 @@
 	<!-- Single file pattern
 	<context:property-placeholder location="classpath:application.properties"/> -->
 	
-	<!-- Multiple files pattern -->
+	<!-- Multiple files pattern (1)
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:application.properties</value>
-				<!-- <value>file:<path from project root>/sample.properties</value> -->
-				<!-- <value>file:<absolute path>/sample.properties</value> -->
+				<value>file:<path from project root>/sample.properties</value>
+				<value>file:<absolute path>/sample.properties</value>
 			</list>
 		</property>
 		<property name="searchSystemEnvironment" value="true"/>
@@ -96,6 +96,17 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true"/>
 		<property name="ignoreResourceNotFound" value="true"/>
 	</bean>
+	-->
+	
+	<!-- Multiple files pattern (2)
+	 The property file specified by the environment variable is preferentially read.
+	 If it does not exist, it reads the property file in the class path. -->
+	
+	<context:property-placeholder ignore-resource-not-found="true"
+		location="file:${spring4mvcexample.configurationFile}" order="1" ignore-unresolvable="true" />
+	
+	<context:property-placeholder
+		location="classpath:application.properties" order="2" ignore-unresolvable="true" />
 	
 <!-- Message Source -->
 	
