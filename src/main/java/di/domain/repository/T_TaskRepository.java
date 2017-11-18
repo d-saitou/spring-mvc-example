@@ -41,7 +41,7 @@ public interface T_TaskRepository extends JpaRepository<T_Task, Integer> {
 	 * @return select result
 	 */
 	@Query( name = "T_TaskRepository.findById", nativeQuery = true,
-			value = "select * from T_Task where id = :id limit 1")
+			value = "select * from t_task where id = :id limit 1")
 	public T_Task findById(@Param("id") Integer id);
 	
 	/**
@@ -49,7 +49,7 @@ public interface T_TaskRepository extends JpaRepository<T_Task, Integer> {
 	 * @return select result
 	 */
 	@Query( name = "T_TaskRepository.findTopOne", nativeQuery = true,
-			value = "select * from T_Task limit 1")
+			value = "select * from t_task limit 1")
 	public T_Task findTopOne();
 	
 	/**
