@@ -10,11 +10,6 @@
 	<name>Spring4MvcExample</name>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-	<build>
-		<finalName>Spring4MvcExample</finalName>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
-	</build>
 	
 	<properties>
 		
@@ -24,6 +19,10 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		
+		<!-- [setting] switch web.xml at packaging START -->
+		<webxml.path>src/main/webapp/WEB-INF/web.xml</webxml.path>
+		<!-- [setting] switch web.xml at packaging END -->
 		
 		<!-- Web -->
 		<servlet.version>3.1.0</servlet.version>
@@ -343,5 +342,50 @@
 		</dependency>
 		
 	</dependencies>
+	
+	<build>
+		<finalName>Spring4MvcExample</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		
+		<!-- [setting] switch web.xml at packaging START -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<webXml>${webxml.path}</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!-- [setting] switch web.xml at packaging END -->
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>production</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<!-- [setting] switch resource files at packaging START -->
+			<build>
+				<resources>
+					<resource>
+						<directory>src/production/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+			<!-- [setting] switch resource files at packaging END -->
+			<!-- [setting] switch web.xml at packaging START -->
+			<properties>
+				<webxml.path>src/production/webapp/WEB-INF/web.xml</webxml.path>
+			</properties>
+			<!-- [setting] switch web.xml at packaging END -->
+		</profile>
+	</profiles>
 	
 </project>
