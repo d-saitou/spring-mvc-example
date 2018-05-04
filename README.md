@@ -9,8 +9,8 @@ This project is under development in the following environment.
 
 * IDE
   - Eclipse 4.6 Neon
-  - Spring Tool Suite(STS) 3.8.4 (Eclipse plugin)
-  - Lombok 1.16.12 (installed in Eclipse)
+  - Spring Tool Suite (STS) 3.8.4 (Eclipse plugin)
+  - Lombok 1.16.12
 * DB
   - MySQL 5.6
 
@@ -30,21 +30,41 @@ This application has the following functions.
 * Asynchronous process (Send e-mail)
 * Scheduled task (DB registration of task execution history)
 
-## 4. Note
-In order to run this application, the following settings are required.
+## 4. Execution method
+To execute this application, please follow the procedure below.
 
-### 4.1. Executive environment
-Install the following software.
+### 4.1. Testing environment
+See [provisioning-environment-for-tomcat8](https://github.com/d-saitou/provisioning-environment-for-tomcat8).
 
-* Application server (Tomcat etc.)
-* MySQL
-* Lombok (Development environment only. Required)
-* Spring Tool Suite (Development environment only. If necessary)
+### 4.2. Development environment
+Please follow the procedure below.
 
-### 4.2. Change application config
-Change the following parameters of the configuration file.
+1. Install the following software.
+	* [Eclipse](https://www.eclipse.org/) \* [Pleiades All in One](http://mergedoc.osdn.jp/) is also acceptable.
+	* [MySQL 5.6 (or later)](https://www.mysql.com/)
+	* [Tomcat 8 (or later)](http://tomcat.apache.org/) \* Link with Eclipse.
 
-* [application.properties](/src/main/resources/application.properties)
+
+2. Install the following plugin in Eclipse.
+	* Spring Tool Suite (STS)
+	* [Lombok](https://projectlombok.org/) \* Refer to the link for the installation procedure.
+
+
+3. Check out this source project on Eclipse.
+
+4. Execute the following command to create a database in MySQL.
+
+  ```
+  mysql -u {MySQL user} -p{password} < {this source project root}/data/db/spring4example.sql
+  ```
+
+6. Change the following parameters of the config file [web.xml](/src/main/webapp/WEB-INF/web.xml) as necessary.
+
+| Paramater Name                                               | Description                      |
+|:-------------------------------------------------------------|:---------------------------------|
+| &lt;servlet&gt;\-&lt;multipart\-config&gt;\-&lt;location&gt; | Temporary files storage location |
+
+6. Change the following parameters of the config file [application.properties](/src/main/resources/application.properties) as necessary.
 
 | Paramater Name | Description                                        |
 |:---------------|:---------------------------------------------------|
@@ -54,18 +74,4 @@ Change the following parameters of the configuration file.
 | jdbc.password  | Database password                                  |
 | javax.mail.\*  | E\-mail config                                     |
 
-* [web.xml](/src/main/webapp/WEB-INF/web.xml)
-
-| Paramater Name                                               | Description                      |
-|:-------------------------------------------------------------|:---------------------------------|
-| &lt;servlet&gt;\-&lt;multipart\-config&gt;\-&lt;location&gt; | Temporary files storage location |
-
-### 4.3. Build and deploy
-Build in the development environment and deploy the application.
-
-### 4.4. Create database
-To create a database in MySQL, execute [SQL](/data/db/spring4example.sql) with the following command.
-
-  ```
-  mysql -u [user] -p[password] < [project root]/data/db/spring4example.sql
-  ```
+7. Configure Eclipse to run this source project in Tomcat.

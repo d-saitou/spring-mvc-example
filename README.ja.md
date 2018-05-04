@@ -9,8 +9,8 @@
 
 * IDE
   - Eclipse 4.6 Neon
-  - Spring Tool Suite(STS) 3.8.4 (Eclipseプラグイン)
-  - Lombok 1.16.12 (Eclipseインストール済み)
+  - Spring Tool Suite (STS) 3.8.4 (Eclipseプラグイン)
+  - Lombok 1.16.12
 * DB
   - MySQL 5.6
 
@@ -30,21 +30,41 @@
 * 非同期処理 (メール送信)
 * タスク (タスク実行履歴DB登録)
 
-## 4. 注意点
-本アプリケーションを実行する場合、以下の設定が必要です。
+## 4. 実行方法
+本アプリケーションを実行する場合、以下の手順を実施してください。
 
-### 4.1. 実行環境
-以下ソフトウェアをインストールしてください。
+### 4.1. テスト環境
+[provisioning-environment-for-tomcat8](https://github.com/d-saitou/provisioning-environment-for-tomcat8) を参照してください。
 
-* Application server (Tomcat等)
-* MySQL
-* Lombok (開発環境のみ。必須)
-* Spring Tool Suite (開発環境のみ。必要に応じて)
+### 4.2. 開発環境
+以下の手順を実施してください。
 
-### 4.2. アプリケーション設定変更
-設定ファイルの以下パラメータを変更してください。
+1. 以下ソフトウェアをインストールしてください。
+	* [Eclipse](https://www.eclipse.org/) ※[Pleiades All in One](http://mergedoc.osdn.jp/) でも可。
+	* [MySQL 5.6以降](https://www.mysql.com/)
+	* [Tomcat 8以降](http://tomcat.apache.org/) ※Eclipseと連携する設定を実施してください。
 
-* [application.properties](/src/main/resources/application.properties)
+
+2. Eclipse に以下のプラグインをインストールしてください。
+	* Spring Tool Suite (STS)
+	* [Lombok](https://projectlombok.org/) ※インストール手順についてはURLを参照してください。
+
+
+3. Eclipse上で本ソースプロジェクトをチェックアウトしてください。
+
+4. 以下コマンドを実行して、MySQLにデータベースを作成してください。
+
+  ```
+  mysql -u {MySQLユーザー} -p{パスワード} < {本ソースプロジェクトルート}/data/db/spring4example.sql
+  ```
+
+5. 必要に応じて、設定ファイル [web.xml](/src/main/webapp/WEB-INF/web.xml) の以下パラメータを変更してください。  
+
+| パラメータ                                                   | 説明                 |
+|:-------------------------------------------------------------|:---------------------|
+| &lt;servlet&gt;\-&lt;multipart\-config&gt;\-&lt;location&gt; | 一時ファイル格納場所 |
+
+6. 必要に応じて、設定ファイル [application.properties](/src/main/resources/application.properties) の以下パラメータを変更してください。  
 
 | パラメータ    | 説明                                   |
 |:--------------|:---------------------------------------|
@@ -54,18 +74,4 @@
 | jdbc.password | DB接続時パスワード                     |
 | javax.mail.\* | メール送信設定                         |
 
-* [web.xml](/src/main/webapp/WEB-INF/web.xml)
-
-| パラメータ                                                   | 説明                 |
-|:-------------------------------------------------------------|:---------------------|
-| &lt;servlet&gt;\-&lt;multipart\-config&gt;\-&lt;location&gt; | 一時ファイル格納場所 |
-
-### 4.3. ビルド及びデプロイ
-開発環境でビルドを行い、アプリケーションをデプロイしてください。
-
-### 4.4. データベース作成
-MySQLにデータベースを作成するため、以下のコマンドで[SQL](/data/db/spring4example.sql)を実行してください。
-
-  ```
-  mysql -u [ユーザ] -p[パスワード] < [プロジェクトルート]/data/db/spring4example.sql
-  ```
+7. Eclipse上で、本ソースプロジェクトをTomcatで実行できるように設定してください。
