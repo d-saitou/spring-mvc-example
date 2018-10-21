@@ -63,6 +63,7 @@
 	  -  description: Clean up source project.
 	  -->
 	<target name="clean" description="Clean up source project.">
+		<mkdir dir="${target.dir}"/>
 		<delete includeemptydirs="true">
 			<fileset dir="target" defaultexcludes="false">
 				<exclude name="**/m2e-wtp/**" />
