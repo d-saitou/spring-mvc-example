@@ -14,6 +14,7 @@
 	<property name="production.webxml" value="src/production/webapp/WEB-INF/web.xml"/>
 	
 	<!-- Target path property -->
+	<property name="target.dir" value="target"/>
 	<property name="target.app.dir" value="target/${project}"/>
 	<property name="target.war.file" value="target/${project}.war"/>
 	<property name="target.classes.dir" value="${target.app.dir}/WEB-INF/classes"/>
@@ -40,6 +41,7 @@
 	  -  description: Initialize source project.
 	  -->
 	<target name="init" description="Initialize source project.">
+		<mkdir dir="${target.dir}"/>
 		<delete dir="${build.dir}"/>
 		<copy includeemptydirs="false" todir="${build.dir}" overwrite="yes">
 			<fileset dir="${src.dir}">
