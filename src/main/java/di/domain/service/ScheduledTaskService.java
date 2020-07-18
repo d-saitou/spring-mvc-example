@@ -29,7 +29,7 @@ public class ScheduledTaskService {
 	 */
 	public void txSaveTaskHistory(String methodName) {
 		T_Scheduledtask_History history = new T_Scheduledtask_History();
-		history.setFunction(methodName);
+		history.setMethod(methodName);
 		history.setMessage("");
 		history.setUpdatedate(new Date());
 		log.info("Scheduled task execute. [method : {}()]", methodName);

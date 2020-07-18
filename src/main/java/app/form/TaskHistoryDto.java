@@ -22,7 +22,7 @@ public class TaskHistoryDto implements Serializable {
 	
 	private Integer id;
 	
-	private String function;
+	private String method;
 	
 	private String message;
 	

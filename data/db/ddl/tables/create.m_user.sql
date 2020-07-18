@@ -8,5 +8,5 @@ CREATE TABLE `m_user` (
  PRIMARY KEY(
   `userid`
  )
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

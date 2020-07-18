@@ -19,7 +19,7 @@
 	<thead>
 		<tr>
 			<th><spring:message code="TaskHistory.th.id" /></th>
-			<th><spring:message code="TaskHistory.th.function" /></th>
+			<th><spring:message code="TaskHistory.th.method" /></th>
 			<th><spring:message code="TaskHistory.th.message" /></th>
 			<th><spring:message code="TaskHistory.th.updatedate" /></th>
 		</tr>
@@ -29,7 +29,7 @@
 		<c:forEach items="${taskHistoryList}" var="taskHistory">
 		<tr>
 			<td class="history-column1"><c:out value="${taskHistory.id}" /></td>
-			<td class="history-column2"><c:out value="${taskHistory.function}" /></td>
+			<td class="history-column2"><c:out value="${taskHistory.method}" /></td>
 			<td class="history-column3"><c:out value="${taskHistory.message}" /></td>
 			<td class="history-column4">
 				<fmt:formatDate value="${taskHistory.updatedate}" pattern="${datetimeFormat}" />

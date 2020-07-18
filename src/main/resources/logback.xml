@@ -80,6 +80,7 @@
 	<logger name="org.springframework" level="warn" />
 	<logger name="org.hibernate" level="warn" />
 	<!-- <logger name="org.mybatis" level="warn" /> -->
+	<logger name="com.zaxxer.hikari" level="warn" />
 	<logger name="org.jboss" level="warn" />
 	<logger name="com.sun" level="warn" />
 	

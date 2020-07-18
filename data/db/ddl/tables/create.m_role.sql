@@ -6,5 +6,5 @@ CREATE TABLE `m_role` (
  PRIMARY KEY(
   `roleid`
  )
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

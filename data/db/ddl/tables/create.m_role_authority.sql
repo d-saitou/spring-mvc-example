@@ -7,5 +7,5 @@ CREATE TABLE `m_role_authority` (
   `roleid`,
   `authorityid`
  )
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

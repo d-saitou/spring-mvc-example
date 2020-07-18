@@ -103,7 +103,7 @@
 	 If it does not exist, it reads the property file in the class path. -->
 	
 	<context:property-placeholder ignore-resource-not-found="true"
-		location="file:${spring4mvcexample.configurationFile}" order="1" ignore-unresolvable="true" />
+		location="file:${springmvcexample.configurationFile}" order="1" ignore-unresolvable="true" />
 	
 	<context:property-placeholder
 		location="classpath:application.properties" order="2" ignore-unresolvable="true" />
@@ -153,7 +153,7 @@
 		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
 	</bean> -->
 	
-	<!-- Tomcat JDBC Connection Pool -->
+	<!-- Tomcat JDBC Connection Pool
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>
 		<property name="url"			 value="${jdbc.url}"/>
@@ -164,20 +164,36 @@
 		<property name="maxIdle"		 value="${jdbc.maxIdle}"/>
 		<property name="minIdle"		 value="${jdbc.minIdle}"/>
 		<property name="validationQuery" value="${jdbc.validationQuery}"/>
-		<!-- * Measures against automatic disconnection of MySQL session -->
+		<!- * Measures against automatic disconnection of MySQL session ->
 		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
-		<!-- JDBC Interceptors (set as necessary)
+		<!- JDBC Interceptors (set as necessary)
 			 [default]
 			   QueryTimeoutInterceptor.queryTimeout:1
 			   StatementCache.prepared:true
 			   StatementCache.callable:false
 			   StatementCache.max:50
 			   SlowQueryReport.threshold:1000
-			   SlowQueryReport.maxQueries:1000 -->
+			   SlowQueryReport.maxQueries:1000 ->
 		<property name="jdbcInterceptors" value="
 			org.apache.tomcat.jdbc.pool.interceptor.QueryTimeoutInterceptor(queryTimeout=10);
 			org.apache.tomcat.jdbc.pool.interceptor.StatementCache(prepared=true,callable=false,max=100);
 			org.apache.tomcat.jdbc.pool.interceptor.SlowQueryReport(threshold=1000,maxQueries=200)"/>
+	</bean> -->
+	
+	<!-- HikariCP -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<property name="poolName"				value="hikariCP-pool"/>
+		<property name="driverClassName"		value="${jdbc.driverClassName}"/>
+		<property name="jdbcUrl"				value="${jdbc.url}"/>
+		<property name="username"				value="${jdbc.username}"/>
+		<property name="password"				value="${jdbc.password}"/>
+		<property name="minimumIdle"			value="${hikariCP.minimumIdle}"/>
+		<property name="maximumPoolSize"		value="${hikariCP.maximumPoolSize}"/>
+		<property name="maxLifetime"			value="${hikariCP.maxLifetime}"/>
+		<property name="idleTimeout"			value="${hikariCP.idleTimeout}"/>
+		<property name="autoCommit"				value="${hikariCP.autoCommit}"/>
+		<property name="leakDetectionThreshold" value="${hikariCP.leakDetectionThreshold}"/>
+		<property name="connectionTestQuery"	value="${hikariCP.connectionTestQuery}"/>
 	</bean>
 	
 <!-- Spring Data JPA/Hibernate

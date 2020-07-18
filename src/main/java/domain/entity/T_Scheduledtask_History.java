@@ -34,8 +34,8 @@ public class T_Scheduledtask_History implements Serializable {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	
-	@Column(name = "function", length = 30)
-	private String function;
+	@Column(name = "method", length = 30)
+	private String method;
 	
 	@Column(name = "message", length = 100)
 	private String message;

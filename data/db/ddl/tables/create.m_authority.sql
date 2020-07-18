@@ -6,5 +6,5 @@ CREATE TABLE `m_authority` (
  PRIMARY KEY(
   `authorityid`
  )
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -1,4 +1,4 @@
-# Spring4 MVC example application
+# Spring MVC example application
 \* [Japanese version](/README.ja.md)
 
 ## 1. Overview
@@ -55,7 +55,7 @@ Please follow the procedure below.
 4. Execute the following command to create a database in MySQL.
 
   ```
-  mysql -u {MySQL user} -p{password} < {this source project root}/data/db/spring4example.sql
+  mysql -u {MySQL user} -p{password} < {this source project root}/data/db/example.sql
   ```
 
 6. Change the following parameters of the config file [web.xml](/src/main/webapp/WEB-INF/web.xml) as necessary.
