@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
-<project name="Spring4MvcExample" basedir="." default="all-for-production" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="spring-mvc-example" basedir="." default="all-for-production" xmlns:ivy="antlib:org.apache.ivy.ant">
 	
-	<property name="project" value="Spring4MvcExample"/>
+	<property name="project" value="spring-mvc-example"/>
 	
 	<!-- Sources path property -->
 	<property name="src.dir" value="src/main/java"/>

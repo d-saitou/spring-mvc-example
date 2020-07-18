@@ -103,7 +103,7 @@
 	 If it does not exist, it reads the property file in the class path. -->
 	
 	<context:property-placeholder ignore-resource-not-found="true"
-		location="file:${spring4mvcexample.configurationFile}" order="1" ignore-unresolvable="true" />
+		location="file:${springmvcexample.configurationFile}" order="1" ignore-unresolvable="true" />
 	
 	<context:property-placeholder
 		location="classpath:application.properties" order="2" ignore-unresolvable="true" />

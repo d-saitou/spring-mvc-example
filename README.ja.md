@@ -1,4 +1,4 @@
-# Spring4 MVCサンプルアプリケーション
+# Spring MVCサンプルアプリケーション
 \* [英語版](/README.md)
 
 ## 1. 概要
@@ -55,7 +55,7 @@
 4. 以下コマンドを実行して、MySQLにデータベースを作成してください。
 
   ```
-  mysql -u {MySQLユーザー} -p{パスワード} < {本ソースプロジェクトルート}/data/db/spring4example.sql
+  mysql -u {MySQLユーザー} -p{パスワード} < {本ソースプロジェクトルート}/data/db/example.sql
   ```
 
 5. 必要に応じて、設定ファイル [web.xml](/src/main/webapp/WEB-INF/web.xml) の以下パラメータを変更してください。  
