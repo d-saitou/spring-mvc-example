@@ -44,7 +44,7 @@
 
 		<!-- MySQL Connecter (Connector/J) -->
 		<!-- * The current latest version 5.1.40 fails to start tomcat. -->
-		<mysql-connector.version>5.1.34</mysql-connector.version>
+		<mysql-connector.version>8.0.16</mysql-connector.version>
 
 		<!-- Tomcat JDBC Connection Pool -->
 		<tomcat-jdbc.version>8.5.9</tomcat-jdbc.version>
