@@ -36,7 +36,7 @@
 		<spring-security.version>4.2.2.RELEASE</spring-security.version>
 
 		<!-- Spring Data JPA -->
-		<spring-data-jpa.version>1.11.1.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.11.23.RELEASE</spring-data-jpa.version>
 
 		<!-- JPA Provider & Validation (Hibernate) -->
 		<!-- * NoSuchMethodError occurs in the current latest version 5.2.5.Final. -->
