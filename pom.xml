@@ -68,7 +68,7 @@
 		<commons-lang.version>3.5</commons-lang.version>
 
 		<!-- Apache Commons IO -->
-		<commons-io.version>2.4</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 
 		<!-- Apache POI -->
 		<poi.version>4.1.2</poi.version>
