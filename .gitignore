@@ -1,6 +1,3 @@
-# .settings/
+.settings/
 target/
-# .classpath
-# .project
-# .springBeans
-.checkstyle
+data/db/generator
