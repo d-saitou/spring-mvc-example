@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head th:replace="fragment.html::head">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../../resources/css/style.css"/>
+</head>
+<body>
+  <!-- header -->
+  <nav class="navbar app-nav">
+    <span class="navbar-brand" th:text="#{header.text.title}">Spring MVC Example</span>
+  </nav>
+
+  <!-- login form -->
+  <div class="d-flex align-items-center text-center app-height-max">
+    <form th:action="@{/login}" method="post" class="app-login-form">
+      <h4 class="h4 mb-3 font-weight-normal" th:text="#{login.msg.request}">
+        Please login
+      </h4>
+      <p th:if="${param.error != null}" class="error" th:text="#{login.msg.auth-failure}">
+        Wrong user or password
+      </p>
+      <input type="text" name="username" class="form-control" placeholder="User name" required autofocus>
+      <input type="password" name="password" class="form-control" placeholder="Password" required>
+      <button type="submit" class="form-control btn btn-lg btn-primary btn-block" th:text="#{login.button.login}">
+        Login
+      </button>
+      <p><a th:href="@{/user/regist}" href="#" th:text="#{login.msg.regist_user}">User registration</a></p>
+    </form>
+  </div>
+
+  <!-- javascript -->
+  <div th:replace="fragment.html::javascripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </div>
+</body>
+</html>

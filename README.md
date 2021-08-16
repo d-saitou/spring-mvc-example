@@ -4,74 +4,47 @@
 ## 1. Overview
 This project is Maven project of Web application example using Spring Framework.
 
-## 2. Development Environment
-This project is under development in the following environment.
+## 2. Implementation
+The following functions were implemented as an implementation example.
 
-* IDE
-  - Eclipse 4.6 Neon
-  - Spring Tool Suite (STS) 3.8.4 (Eclipse plugin)
-  - Lombok 1.16.12
-* DB
-  - MySQL 5.6
+* form validation
+* file upload and download
+* DB CRUD
+* authentication and authorization
+* AOP (transaction configuration and logging)
+* REST API
+* sending an email using asynchronous processing
+* resource access using webjars
+* exception handling
+* internationalization
+* task scheduler
 
-## 3. Functions
-This application has the following functions.
+## 3. Development environment
+To run this application, please follow the steps below.
 
-* Basic functions
-  - Authentication / Authorization
-  - Validation
-  - File upload and download
-  - DB-CRUD
-  - Static resource reference (Using Webjars)
-  - Exception handling
-  - Internationalization
-* AOP (Transaction setting, logging)
-* REST API (text, XML, JSON)
-* Asynchronous process (Send e-mail)
-* Scheduled task (DB registration of task execution history)
+1. Install the following items.
+	* JDK 11 (or later)
+	* IDEs such as Eclipse and IntelliJ (require Lombok and Maven plugins)
+	* MySQL 8.0
+	* Tomcat 9 (or later)
 
-## 4. Execution method
-To execute this application, please follow the procedure below.
+2. Check out this source project on the IDE.
 
-### 4.1. Testing environment
-See [provisioning-environment-for-tomcat8](https://github.com/d-saitou/provisioning-environment-for-tomcat8).
+3. Change the following parameters of the config file [application.properties](/src/main/resources/application.properties) as necessary.
 
-### 4.2. Development environment
-Please follow the procedure below.
+| Paramater Name      | Description                                        |
+|:--------------------|:---------------------------------------------------|
+| application.datadir | files storage location (log, temporary file, etc.) |
+| jdbc.host           | database host                                      |
+| jdbc.database       | database name                                      |
+| jdbc.username       | database user name                                 |
+| jdbc.password       | database password                                  |
+| javax.mail.\*       | e\-mail config                                     |
 
-1. Install the following software.
-	* [Eclipse](https://www.eclipse.org/) \* [Pleiades All in One](http://mergedoc.osdn.jp/) is also acceptable.
-	* [MySQL 5.6 (or later)](https://www.mysql.com/)
-	* [Tomcat 8 (or later)](http://tomcat.apache.org/) \* Link with Eclipse.
+4. Create database and user in MySQL according to parameters in [application.properties](/src/main/resources/application.properties).
 
+5. (Windows) Create tables in MySQL by running the batch file [run_sql_files.bat](/data/db/run_sql_files.bat)\*\.  
+   (other) Create tables in MySQL by running SQL files under [db](/data/db) directory.  
+   \*[run_sql_files.bat](/data/db/run_sql_files.bat) references [application.properties](/src/main/resources/application.properties) to connect to the database.
 
-2. Install the following plugin in Eclipse.
-	* Spring Tool Suite (STS)
-	* [Lombok](https://projectlombok.org/) \* Refer to the link for the installation procedure.
-
-
-3. Check out this source project on Eclipse.
-
-4. Execute the following command to create a database in MySQL.
-
-  ```
-  mysql -u {MySQL user} -p{password} < {this source project root}/data/db/example.sql
-  ```
-
-6. Change the following parameters of the config file [web.xml](/src/main/webapp/WEB-INF/web.xml) as necessary.
-
-| Paramater Name                                               | Description                      |
-|:-------------------------------------------------------------|:---------------------------------|
-| &lt;servlet&gt;\-&lt;multipart\-config&gt;\-&lt;location&gt; | Temporary files storage location |
-
-6. Change the following parameters of the config file [application.properties](/src/main/resources/application.properties) as necessary.
-
-| Paramater Name | Description                                        |
-|:---------------|:---------------------------------------------------|
-| app.datadir    | Files storage location (log, temporary file, etc.) |
-| jdbc.url       | Database URL                                       |
-| jdbc.username  | Database user name                                 |
-| jdbc.password  | Database password                                  |
-| javax.mail.\*  | E\-mail config                                     |
-
-7. Configure Eclipse to run this source project in Tomcat.
+6. Deploy this source project to Tomcat.

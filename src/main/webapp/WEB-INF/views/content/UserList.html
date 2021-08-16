@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head th:replace="fragment.html::head">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../../resources/css/style.css"/>
+  <title th:text="#{header.text.title}">Spring MVC Example</title>
+</head>
+<body>
+  <!-- header -->
+  <nav th:replace="fragment.html::header"></nav>
+
+  <div class="app-flex-container-lg">
+    <!-- sidebar -->
+    <nav th:replace="fragment.html::sidebar"></nav>
+
+    <!-- main -->
+    <main class="app-main-contents">
+      <div class="d-flex justify-content-center">
+        <div class="card" style="width: 100%;">
+          <div class="card-header" th:text="#{UserList.title}">User List</div>
+          <div class="card-body">
+            <form id="userListForm" th:action="@{/user/list}" action="#" method="post" th:object="${userListForm}">
+              <div class="error" th:if="${#fields.hasErrors('userList')}" th:errors="*{userList}">error</div>
+              <div class="button-area pb-3">
+                <button type="reset" id="resetBtn" class="btn btn-secondary" th:text="#{common.button.reset}">Reset</button>
+                <button type="submit" id="updateBtn" class="btn btn-primary" th:text="#{common.button.register}">Register</button>
+              </div>
+              <!-- task list -->
+              <div class="table-responsive-lg">
+                <table id="userList" class="table table-striped table-bordered table-hover table-sm">
+                <thead class="thead-light">
+                  <tr>
+                    <!-- https://github.com/twbs/bootstrap/issues/23493 -->
+                    <th class="text-center" style="width: 15%" th:text="#{UserList.label.userId}">user id</th>
+                    <th class="text-center" style="width: 20%" th:text="#{UserList.label.userName}">user name</th>
+                    <th class="text-center" style="width: 25%" th:text="#{UserList.label.emailAddress1}">emailAddress1</th>
+                    <th class="text-center" style="width: 25%" th:text="#{UserList.label.emailAddress2}">emailAddress2</th>
+                    <th class="text-center" style="width: 5%" th:text="#{UserList.label.enable}">enable</th>
+                    <th class="text-center" style="width: 10%" th:text="#{common.button.delete}">delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="user, iterStat : *{userList}">
+                    <td th:text="${user.userId}" class="align-middle"></td>
+                    <td th:text="${user.userName}" class="align-middle"></td>
+                    <td th:text="${user.emailAddress1}" class="align-middle"></td>
+                    <td th:text="${user.emailAddress2}" class="align-middle"></td>
+                    <td class="align-middle" style="text-align: center;">
+                      <input type="hidden" th:field="*{userList[__${iterStat.index}__].userId}">
+                      <input type="hidden" th:field="*{userList[__${iterStat.index}__].readonly}">
+                      <input type="checkbox" th:field="*{userList[__${iterStat.index}__].enable}">
+                      <input type="hidden" th:field="*{userList[__${iterStat.index}__].updateFlg}">
+                    </td>
+                    <td class="text-center">
+                      <a th:id="'deleteBtn_' + ${iterStat.index}" class="btn btn-warning" th:href="@{'/user/delete/' + ${user.userId}}" th:text="#{common.button.delete}"></a>
+                    </td>
+                  </tr>
+                </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- javascript -->
+  <div th:replace="fragment.html::javascripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/common.js"></script>
+  </div>
+<script>
+$(function () {
+	setResetButtonEvent();
+	setUserEnableChengeEvent();
+	setUserDeleteButtonClickEvent();
+});
+
+function setResetButtonEvent() {
+	$('#resetBtn').on('click', function() {
+		$('#userList tbody tr').css('background-color', '');
+	});
+}
+
+function setUserEnableChengeEvent() {
+	$('input[name$="enable"]').on('click', function() {
+		var row = $(this).closest('tr');
+		var readonly = row.find('input[name$="readonly"]');
+		if (readonly.val() == 'true') {
+			alert('[[#{UserList.msg.error.readonly}]]');
+			return false;
+		}
+		var updateFlg = row.find('input[name$="updateFlg"]');
+		if (updateFlg.val() == 'false') {
+			updateFlg.val('true');
+			row.css('background-color', '#F5A9BC');
+		} else {
+			updateFlg.val('false');
+			row.css('background-color', '');
+		}
+		return true;
+	});
+}
+
+function setUserDeleteButtonClickEvent() {
+	$('[id^=deleteBtn]').on('click', function() {
+		var row = $(this).closest('tr');
+		var readonly = row.find('input[name$="readonly"]');
+		if (readonly.val() == 'true') {
+			alert('[[#{UserList.msg.error.readonly}]]');
+			return false;
+		}
+		return true;
+	});
+}
+</script>
+</body>
+</html>
