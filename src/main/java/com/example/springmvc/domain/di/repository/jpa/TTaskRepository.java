@@ -25,8 +25,7 @@ public interface TTaskRepository extends JpaRepository<TTask, Integer> {
 	 * @param id task id.
 	 * @return task entities.
 	 */
-	@Query(name = "TTaskRepository.findById", nativeQuery = true,
-			value = "select * from t_task where id = :id limit 1")
+	@Query(nativeQuery = true, value = "select * from t_task where id = :id limit 1")
 	public TTask findById(@Param("id") String id);
 
 	/**
@@ -54,9 +53,7 @@ public interface TTaskRepository extends JpaRepository<TTask, Integer> {
 	 * @param userId       user id.
 	 * @return Number of updates.
 	 */
-	@Query(name = "TTaskRepository.setEntity",
-			value =
-			"update TTask t "
+	@Query("update TTask t "
 			+ "set t.title = :title, t.scheduleDate = :scheduleDate, t.status = :status, "
 			+ "t.description = :description, t.userId = :userId where t.id = :id")
 	@Modifying // Automatic call of EntityManager#clear

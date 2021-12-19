@@ -36,8 +36,7 @@ public interface MUserRepository extends JpaRepository<MUser, String> {
 	 * @param enabled true if user is valid.
 	 * @return Number of updates.
 	 */
-	@Query(name = "MUserRepository.setEnable",
-			value = "update MUser t set t.enabled = :enabled where t.userId = :userId")
+	@Query("update MUser t set t.enabled = :enabled where t.userId = :userId")
 	@Modifying // Automatic call of EntityManager#clear
 	public int setEnable(@Param("userId") String userId, @Param("enabled") boolean enabled);
 
