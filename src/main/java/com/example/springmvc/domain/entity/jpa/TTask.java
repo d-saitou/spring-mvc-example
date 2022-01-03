@@ -10,41 +10,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.example.springmvc.domain.entity.jpa.base.AbstractAuditingBaseEntity;
 import com.example.springmvc.utility.StringUtility;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.EqualsAndHashCode;
 
 /**
  * JPA entity (table: t_task).
  */
 @Entity
 @Table(name = "t_task")
-@Accessors(chain = true)
 @Data
-public class TTask implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class TTask extends AbstractAuditingBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Integer id;
+	@Column(name = "task_id", nullable = false)
+	private Integer taskId;
 
 	@Column(name = "title", length = 100)
 	private String title;
 
-	@Column(name = "schedule_date")
-	private LocalDate scheduleDate;
+	@Column(name = "scheduled_date")
+	private LocalDate scheduledDate;
 
-	@Column(name = "status", nullable = false, columnDefinition = "BIT", length = 1)
-	private boolean status;
+	@Column(name = "completion")
+	private Boolean completion;
 
 	@Column(name = "description", columnDefinition = "TEXT", length = 65535)
 	private String description;
-
-	@Column(name = "user_id", length = 11)
-	private String userId;
 
 	@Override
 	public String toString() {

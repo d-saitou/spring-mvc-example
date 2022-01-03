@@ -28,10 +28,10 @@
             <table id="taskList" class="table table-striped table-bordered table-hover table-sm">
             <thead class="thead-light">
               <tr>
-                <th style="width: 5%" th:text="#{TaskList.label.id}" scope="col">id</th>
+                <th style="width: 5%" th:text="#{TaskList.label.taskId}" scope="col">id</th>
                 <th style="width: 20%" th:text="#{TaskList.label.title}" scope="col">title</th>
-                <th style="width: 10%" th:text="#{TaskList.label.scheduleDate}" scope="col">scheduleDate</th>
-                <th style="width: 10%" th:text="#{TaskList.label.status}" scope="col">status</th>
+                <th style="width: 10%" th:text="#{TaskList.label.scheduledDate}" scope="col">scheduledDate</th>
+                <th style="width: 10%" th:text="#{TaskList.label.completion}" scope="col">completion</th>
                 <th style="width: 50%" th:text="#{TaskList.label.description}" scope="col">description</th>
               </tr>
             </thead>
@@ -58,17 +58,17 @@
         type     : "GET",
         url      : "[[@{/task/api}]]",
         dataType : "json",
-        statusCode: {
+        completionCode: {
           404: function(){ alert("Page not found."); }
         }
-      }).done(function(data, textStatus, jqXHR){
+      }).done(function(data, textcompletion, jqXHR){
         drawTaskList(data);
-      }).fail(function(data, textStatus, errorThrown){
-        alert("status:" + textStatus);
+      }).fail(function(data, textcompletion, errorThrown){
+        alert("completion:" + textcompletion);
         console.log(XMLHttpRequest);
-        console.log(textStatus);
+        console.log(textcompletion);
         console.log(errorThrown.message);
-      }).always(function(data, textStatus, returnedObject) {
+      }).always(function(data, textcompletion, returnedObject) {
       });
     });
 
@@ -78,21 +78,21 @@
       $('#taskList tbody *').remove();
       var html = "";
       for (i = 0; i < json.length; i++) {
-        var id = json[i]["id"];
+        var taskId = json[i]["taskId"];
         var title = escapeHtml(json[i]["title"]);
-        //var scheduleDate = json[i]["scheduleDate"].replace(/-/g, "/");
-        var scheduleDate = json[i]["scheduleDate"];
+        //var scheduledDate = json[i]["scheduledDate"].replace(/-/g, "/");
+        var scheduledDate = json[i]["scheduledDate"];
         description = escapeHtml(json[i]["description"]);
-        var status = "";
-        if(json[i]["status"] == true) {
-          status = "[[#{TaskList.label.status}]]";
+        var completion = "";
+        if(json[i]["completion"] == true) {
+          completion = "[[#{TaskList.label.completion}]]";
         }
         // Generate html of task data line
         html = '<tr>' +
-             '<td>' + id + '</td>' +
+             '<td>' + taskId + '</td>' +
              '<td>' + title + '</td>' +
-             '<td>' + scheduleDate + '</td>' +
-             '<td>' + status + '</td>' +
+             '<td>' + scheduledDate + '</td>' +
+             '<td>' + completion + '</td>' +
              '<td>' + description + '</td>' +
              '</tr>'
         // Add an element with the append method and call trigger to apply CSS

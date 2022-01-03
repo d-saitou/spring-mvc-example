@@ -37,7 +37,7 @@ public class ScheduledTaskHistoryController {
 			form.setId(entity.getId());
 			form.setMethod(entity.getMethod());
 			form.setMessage(entity.getMessage());
-			form.setUpdatedate(entity.getUpdateDate());
+			form.setCreatedDate(entity.getCreatedDate());
 			formList.add(form);
 		}
 		model.addAttribute("formList", formList);

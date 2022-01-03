@@ -2,16 +2,17 @@ package com.example.springmvc.domain.entity.jpa;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.example.springmvc.domain.entity.jpa.base.AbstractAuditingBaseEntity;
 import com.example.springmvc.utility.StringUtility;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * JPA entity (table: m_user).
@@ -19,7 +20,8 @@ import lombok.Data;
 @Entity
 @Table(name = "m_user")
 @Data
-public class MUser implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class MUser extends AbstractAuditingBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -69,20 +71,17 @@ public class MUser implements Serializable {
 	@Column(name = "session_timeout")
 	private Integer sessionTimeout;
 
-	@Column(name = "email_newsletter_1", nullable = false, columnDefinition = "BIT", length = 1)
-	private boolean emailNewsletter1;
+	@Column(name = "email_newsletter_1")
+	private Boolean emailNewsletter1;
 
-	@Column(name = "email_newsletter_2", nullable = false, columnDefinition = "BIT", length = 1)
-	private boolean emailNewsletter2;
+	@Column(name = "email_newsletter_2")
+	private Boolean emailNewsletter2;
 
-	@Column(name = "readonly", nullable = false, columnDefinition = "BIT", length = 1)
-	private boolean readonly;
+	@Column(name = "readonly")
+	private Boolean readonly;
 
-	@Column(name = "enabled", nullable = false, columnDefinition = "BIT", length = 1)
-	private boolean enabled;
-
-	@Column(name = "update_date")
-	private LocalDateTime updateDate;
+	@Column(name = "enabled")
+	private Boolean enabled;
 
 	@Override
 	public String toString() {

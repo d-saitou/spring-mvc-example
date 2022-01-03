@@ -1,7 +1,6 @@
 package com.example.springmvc.application.di.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +49,7 @@ public class TaskUpdateController {
 	public String get(Model model, Locale locale,
 			@RequestParam(name = "page", required = false) String page,
 			@PathVariable(name = "id", required = false) String id) {
-		TTask task = service.txGetTaskById(id);
+		TTask task = service.txGetTaskByTaskId(id);
 		model.addAttribute("taskForm", helper.convertEntityToForm(task, locale));
 		model.addAttribute("page", page);
 		return "content/TaskUpdate";
@@ -77,10 +76,10 @@ public class TaskUpdateController {
 			model.addAttribute("page", page);
 			return "content/TaskUpdate";
 		} else {
-			form.setUserId(userDetails.getUsername());
-			List<TTask> entities = new ArrayList<TTask>();
-			entities.add(helper.convertFormToEntity(form, locale));
-			service.txSaveTasks(entities);
+			TTask entity = helper.convertFormToEntity(form, locale);
+			entity.setModifiedBy(userDetails.getUsername());
+			entity.setModifiedDate(LocalDateTime.now());
+			service.txUpdateTask(entity);
 			return "redirect:/task/list?page=" + page;
 		}
 	}

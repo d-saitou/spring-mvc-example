@@ -61,7 +61,7 @@ public class TaskListController {
 	 */
 	protected TaskPageForm getTaskPage(int page, Locale locale, String userid) {
 		// get task page
-		String[] order = new String[] { "id" };
+		String[] order = new String[] { "taskId" };
 		PageRequest pageable = PageRequest.of(page - 1, pageSize, Direction.ASC, order);
 		Page<TTask> taskPage = service.txGetTaskPagingListByUserid(userid, pageable);
 		// create form

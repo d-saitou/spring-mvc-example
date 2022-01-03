@@ -1,7 +1,6 @@
 package com.example.springmvc.domain.entity.jpa;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.example.springmvc.domain.entity.jpa.base.AbstractAuditingBaseDateOnlyEntity;
 import com.example.springmvc.utility.StringUtility;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * JPA entity (table: t_scheduledtask_history).
@@ -20,7 +21,8 @@ import lombok.Data;
 @Entity
 @Table(name = "t_scheduledtask_history")
 @Data
-public class TScheduledTaskHistory implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class TScheduledTaskHistory extends AbstractAuditingBaseDateOnlyEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,9 +36,6 @@ public class TScheduledTaskHistory implements Serializable {
 
 	@Column(name = "message", length = 100)
 	private String message;
-
-	@Column(name = "update_date")
-	private LocalDateTime updateDate;
 
 	@Override
 	public String toString() {

@@ -40,34 +40,34 @@
                 <thead class="thead-light">
                   <tr>
                     <!-- https://github.com/twbs/bootstrap/issues/23493 -->
-                    <th style="width: 5%" th:text="#{TaskList.label.id}">id</th>
+                    <th style="width: 5%" th:text="#{TaskList.label.taskId}">id</th>
                     <th style="width: 20%" th:text="#{TaskList.label.title}">title</th>
-                    <th style="width: 10%" th:text="#{TaskList.label.scheduleDate}">scheduleDate</th>
-                    <th style="width: 5%" th:text="#{TaskList.label.status}">status</th>
+                    <th style="width: 10%" th:text="#{TaskList.label.scheduledDate}">scheduledDate</th>
+                    <th style="width: 5%" th:text="#{TaskList.label.completion}">completion</th>
                     <th style="width: 55%" th:text="#{TaskList.label.description}">description</th>
                     <th style="width: 5%" th:text="#{TaskList.label.delete}">delete</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr th:each="task, iterStat : *{tasklist}">
-                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.taskId}"></td>
                     <td>
                       <input type="text" th:field="*{tasklist[__${iterStat.index}__].title}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
                       <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].title')}" th:errors="*{tasklist[__${iterStat.index}__].title}">error</span>
                     </td>
                     <td>
-                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].scheduleDate}" max="10" style="width: 100px;" class="form-control" autocomplete="off">
-                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].scheduleDate')}" th:errors="*{tasklist[__${iterStat.index}__].scheduleDate}">error</span>
+                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].scheduledDate}" max="10" style="width: 100px;" class="form-control" autocomplete="off">
+                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].scheduledDate')}" th:errors="*{tasklist[__${iterStat.index}__].scheduledDate}">error</span>
                     </td>
                     <td class="align-middle" style="text-align: center;">
-                      <input type="checkbox" th:field="*{tasklist[__${iterStat.index}__].status}">
+                      <input type="checkbox" th:field="*{tasklist[__${iterStat.index}__].completion}">
                     </td>
                     <td>
                       <input type="text" th:field="*{tasklist[__${iterStat.index}__].description}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
                       <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].description')}" th:errors="*{tasklist[__${iterStat.index}__].description}">error</span>
                     </td>
                     <td class="align-middle" style="text-align: center;">
-                      <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].id}">
+                      <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].taskId}">
                       <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].userId}">
                       <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].updateFlg}">
                       <input type="checkbox" th:field="*{tasklist[__${iterStat.index}__].deleteFlg}">
@@ -131,7 +131,7 @@
     <script src="../../resources/js/common.js"></script>
   </div>
 <script>
-var updateFormsSelector = 'input[name$="title"],input[name$="scheduleDate"],input[name$="status"],input[name$="description"]';
+var updateFormsSelector = 'input[name$="title"],input[name$="scheduledDate"],input[name$="completion"],input[name$="description"]';
 
 $(function () {
 	resetInitialScreenState();
@@ -146,21 +146,21 @@ function resetInitialScreenState() {
 		var row = $(tr);
 		row.css('background-color', '');
 		row.find(updateFormsSelector).attr('readonly', false);
-		row.find('input[name$="status"]').off('click');
+		row.find('input[name$="completion"]').off('click');
 		if (row.find('input[name="initUpdateFlg"]').val() == 'true') {
 			row.css('background-color', '#F5A9BC');
 		}
 		if (row.find('input[name="initDeleteFlg"]').val() == 'true') {
 			row.css('background-color', '#848484');
 			row.find(updateFormsSelector).attr('readonly', true);
-			row.find('input[name$="status"]').on('click', function() { return false; });
+			row.find('input[name$="completion"]').on('click', function() { return false; });
 		}
 	});
 }
 
 function resetDatepickerEvent() {
-	$('input[name$="scheduleDate"]').datepicker('destroy');
-	$('input[name$="scheduleDate"]:not([readonly])').datepicker({
+	$('input[name$="scheduledDate"]').datepicker('destroy');
+	$('input[name$="scheduledDate"]:not([readonly])').datepicker({
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: '[[#{common.format.datepicker}]]'
@@ -186,13 +186,13 @@ function setDeleteCheckEvent() {
 			} else {
 				row.css('background-color', '#848484');
 				row.find(updateFormsSelector).attr('readonly', true);
-				row.find('input[name$="status"]').on('click', function() { return false; });
-				row.find('input[name$="scheduleDate"]').datepicker('destroy');
+				row.find('input[name$="completion"]').on('click', function() { return false; });
+				row.find('input[name$="scheduledDate"]').datepicker('destroy');
 			}
 		} else {
 			row.css('background-color', '');
 			row.find(updateFormsSelector).attr('readonly', false);
-			row.find('input[name$="status"]').off('click');
+			row.find('input[name$="completion"]').off('click');
 			resetDatepickerEvent();
 		}
 	});

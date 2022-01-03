@@ -36,31 +36,31 @@
                 <thead class="thead-light">
                   <tr>
                     <!-- https://github.com/twbs/bootstrap/issues/23493 -->
-                    <th style="width: 5%" th:text="#{TaskList.label.id}">id</th>
+                    <th style="width: 5%" th:text="#{TaskList.label.taskId}">id</th>
                     <th style="width: 20%" th:text="#{TaskList.label.title}">title</th>
-                    <th style="width: 10%" th:text="#{TaskList.label.scheduleDate}">scheduleDate</th>
-                    <th style="width: 5%" th:text="#{TaskList.label.status}">status</th>
+                    <th style="width: 10%" th:text="#{TaskList.label.scheduledDate}">scheduledDate</th>
+                    <th style="width: 5%" th:text="#{TaskList.label.completion}">completion</th>
                     <th style="width: 46%" th:text="#{TaskList.label.description}">description</th>
                     <th style="width: 7%" th:text="#{common.button.update}">update</th>
                     <th style="width: 7%" th:text="#{common.button.delete}">delete</th>
                   </tr>
                 </thead>
                 <!--<tbody th:with="dateFormat=#{common.format.date}">-->
-                <tbody th:with="statusDispValue=#{TaskList.label.status}">
+                <tbody th:with="completionDispValue=#{TaskList.label.completion}">
                   <tr th:each="task, iterStat : *{tasklist}">
-                    <td th:text="${task.id}" class="align-middle"></td>
+                    <td th:text="${task.taskId}" class="align-middle"></td>
                     <td th:text="${task.title}" class="align-middle">test</td>
-                    <!--<td th:text="${#calendars.format(task.scheduleDate, dateFormat)}">9999/99/99</td>-->
-                    <td th:text="${task.scheduleDate}" class="align-middle">9999/99/99</td>
+                    <!--<td th:text="${#calendars.format(task.scheduledDate, dateFormat)}">9999/99/99</td>-->
+                    <td th:text="${task.scheduledDate}" class="align-middle">9999/99/99</td>
                     <td class="align-middle">
-                      <span th:if="${task.status}" th:text="${statusDispValue}"></span>
+                      <span th:if="${task.completion}" th:text="${completionDispValue}"></span>
                     </td>
                     <td th:text="${task.description}" class="align-middle">...</td>
                     <td class="align-middle" style="text-align: center;">
-                      <a class="btn btn-primary" th:href="@{'/task/update/' + ${task.id}(page=*{currentPage})}" th:text="#{common.button.update}"></a>
+                      <a class="btn btn-primary" th:href="@{'/task/update/' + ${task.taskId}(page=*{currentPage})}" th:text="#{common.button.update}"></a>
                     </td>
                     <td class="align-middle" style="text-align: center;">
-                      <a class="btn btn-warning" th:href="@{'/task/delete/' + ${task.id}(page=*{currentPage})}" th:text="#{common.button.delete}"></a>
+                      <a class="btn btn-warning" th:href="@{'/task/delete/' + ${task.taskId}(page=*{currentPage})}" th:text="#{common.button.delete}"></a>
                     </td>
                   </tr>
                 </tbody>

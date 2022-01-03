@@ -1,6 +1,5 @@
 package com.example.springmvc.domain.di.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -31,7 +30,6 @@ public class ScheduledTaskService {
 		TScheduledTaskHistory history = new TScheduledTaskHistory();
 		history.setMethod(methodName);
 		history.setMessage("");
-		history.setUpdateDate(LocalDateTime.now());
 		log.info("Scheduled task execute. [method : {}()]", methodName);
 		try {
 			this.repo.save(history);

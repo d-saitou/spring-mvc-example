@@ -23,11 +23,11 @@ public class TaskManageService {
 
 	/**
 	 * Get task by task id.
-	 * @param id task id.
+	 * @param taskId task id.
 	 * @return task entity.
 	 */
-	public TTask txGetTaskById(String id) {
-		return repo.findById(id);
+	public TTask txGetTaskByTaskId(String taskId) {
+		return repo.findByTaskId(taskId);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class TaskManageService {
 	 * @return task entities.
 	 */
 	public List<TTask> txGetTaskByUserid(String userid) {
-		return repo.findByUserIdEquals(userid);
+		return repo.findByCreatedByEquals(userid);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class TaskManageService {
 	 * @return Page object.
 	 */
 	public Page<TTask> txGetTaskPagingListByUserid(String userid, Pageable pageable) {
-		return repo.findByUserIdEquals(userid, pageable);
+		return repo.findByCreatedByEquals(userid, pageable);
 	}
 
 	/**
@@ -60,12 +60,24 @@ public class TaskManageService {
 	}
 
 	/**
+	 * Update task.
+	 * @param task task entity.
+	 * @return Number of updates.
+	 */
+	public int txUpdateTask(TTask task) {
+		return repo.setEntity(
+				task.getTaskId(), task.getTitle(), task.getScheduledDate(),
+				task.getCompletion(), task.getDescription(),
+				task.getModifiedBy(), task.getModifiedDate());
+	}
+
+	/**
 	 * Delete task by task id.
-	 * @param id task id.
+	 * @param taskId task id.
 	 * @return Number of deletes.
 	 */
-	public int txDeleteTask(int id) {
-		return repo.removeById(id);
+	public int txDeleteTask(int taskId) {
+		return repo.removeByTaskId(taskId);
 	}
 
 	/**

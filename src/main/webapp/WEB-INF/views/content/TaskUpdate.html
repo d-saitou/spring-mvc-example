@@ -27,7 +27,7 @@
           <div class="card-body">
             <form id="taskForm" th:action="@{/task/update}" th:object="${taskForm}" method="post">
               <input type="hidden" name="page" th:value="${page}">
-              <input type="hidden" th:field="*{id}">
+              <input type="hidden" th:field="*{taskId}">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="title" th:text="#{TaskList.label.title}">User ID:</label>
@@ -37,17 +37,17 @@
               </div>
               <div class="form-row align-items-center">
                 <div class="form-group col-md-4">
-                  <label for="dirthday" th:text="#{TaskList.label.scheduleDate}">Birthday:</label>
-                  <input class="form-control" type="text" th:field="*{scheduleDate}" autocomplete="off"/>
-                  <div class="error" th:if="${#fields.hasErrors('scheduleDate')}" th:errors="*{scheduleDate}">error</div>
+                  <label for="dirthday" th:text="#{TaskList.label.scheduledDate}">Birthday:</label>
+                  <input class="form-control" type="text" th:field="*{scheduledDate}" autocomplete="off"/>
+                  <div class="error" th:if="${#fields.hasErrors('scheduledDate')}" th:errors="*{scheduledDate}">error</div>
                 </div>
                 <div class="form-group col-md-1"></div>
                 <div class="form-group col-md-4">
                   <div class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:id="${#ids.seq('status')}" th:field="*{status}" value="true">
-                    <label class="form-check-label" th:for="${#ids.prev('status')}" th:text="#{TaskList.label.status}">complete</label>
+                    <input class="form-check-input" type="checkbox" th:id="${#ids.seq('completion')}" th:field="*{completion}" value="true">
+                    <label class="form-check-label" th:for="${#ids.prev('completion')}" th:text="#{TaskList.label.completion}">complete</label>
                   </div>
-                  <div class="error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">error</div>
+                  <div class="error" th:if="${#fields.hasErrors('completion')}" th:errors="*{completion}">error</div>
                 </div>
               </div>
               <div class="form-row">
@@ -80,7 +80,7 @@
   </div>
 <script>
 $(function () {
-	$('input[name$="scheduleDate"]').datepicker({
+	$('input[name$="scheduledDate"]').datepicker({
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: '[[#{common.format.datepicker}]]'

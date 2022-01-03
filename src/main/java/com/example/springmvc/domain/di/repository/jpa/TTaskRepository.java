@@ -1,6 +1,7 @@
 package com.example.springmvc.domain.di.repository.jpa;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -22,54 +23,64 @@ public interface TTaskRepository extends JpaRepository<TTask, Integer> {
 
 	/**
 	 * Select by task id (implementation pattern by named native query).
-	 * @param id task id.
+	 * @param taskId task id.
 	 * @return task entities.
 	 */
-	@Query(nativeQuery = true, value = "select * from t_task where id = :id limit 1")
-	public TTask findById(@Param("id") String id);
+	@Query(nativeQuery = true, value = "select * from t_task where task_id = :taskId limit 1")
+	public TTask findByTaskId(@Param("taskId") String taskId);
 
 	/**
 	 * Select by user id (implementation pattern by method name).
-	 * @param userId user id.
+	 * @param createdBy user id.
 	 * @return task entities.
 	 */
-	public List<TTask> findByUserIdEquals(String userId);
+	public List<TTask> findByCreatedByEquals(String createdBy);
 
 	/**
 	 * Select by user id and pagination (implementation pattern by method name).
-	 * @param userId   user id.
-	 * @param pageable Pageable object.
+	 * @param createdBy user id.
+	 * @param pageable  Pageable object.
 	 * @return task entities. (Page object)
 	 */
-	public Page<TTask> findByUserIdEquals(String userId, Pageable pageable);
+	public Page<TTask> findByCreatedByEquals(String createdBy, Pageable pageable);
 
 	/**
 	 * Update by task id (implementation pattern by named JPQL query).
-	 * @param id           task id.
-	 * @param title        title.
-	 * @param scheduleDate scheduled date.
-	 * @param status       status.
-	 * @param description  description.
-	 * @param userId       user id.
+	 * @param taskId        task id.
+	 * @param title         title.
+	 * @param scheduledDate scheduled date.
+	 * @param completion    completion status.
+	 * @param description   description.
 	 * @return Number of updates.
 	 */
 	@Query("update TTask t "
-			+ "set t.title = :title, t.scheduleDate = :scheduleDate, t.status = :status, "
-			+ "t.description = :description, t.userId = :userId where t.id = :id")
+			+ "set"
+			+ " t.title = :title,"
+			+ " t.scheduledDate = :scheduledDate,"
+			+ " t.completion = :completion,"
+			+ " t.description = :description,"
+			+ " t.modifiedBy = :modifiedBy,"
+			+ " t.modifiedDate = :modifiedDate "
+			+ "where"
+			+ " t.taskId = :taskId")
 	@Modifying // Automatic call of EntityManager#clear
 	//@Modifying(clearAutomatically = false)
 	public int setEntity(
-			@Param("id") Integer id, @Param("title") String title,
-			@Param("scheduleDate") Date scheduleDate, @Param("status") boolean status,
-			@Param("description") String description, @Param("userId") String userId);
+			@Param("taskId") Integer taskId,
+			@Param("title") String title,
+			@Param("scheduledDate") LocalDate scheduledDate,
+			@Param("completion") Boolean completion,
+			@Param("description") String description,
+			@Param("modifiedBy") String modifiedBy,
+			@Param("modifiedDate") LocalDateTime modifiedDate);
 
 	/**
 	 * Delete by task id (implementation pattern by method name).
-	 * @param id task id.
+	 * @param taskId task id.
 	 * @return Number of deletes.
 	 */
 	@Modifying // Automatic call of EntityManager#clear
 	//@Modifying(clearAutomatically = false)
-	public int removeById(int id);
+	public int removeByTaskId(int taskId);
 
 }

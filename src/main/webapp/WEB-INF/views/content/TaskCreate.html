@@ -32,7 +32,7 @@
                   <tr>
                     <!-- https://github.com/twbs/bootstrap/issues/23493 -->
                     <th style="width: 30%" th:text="#{TaskList.label.title}">title</th>
-                    <th style="width: 10%" th:text="#{TaskList.label.scheduleDate}">scheduleDate</th>
+                    <th style="width: 10%" th:text="#{TaskList.label.scheduledDate}">scheduledDate</th>
                     <th style="width: 60%" th:text="#{TaskList.label.description}">description</th>
                   </tr>
                 </thead>
@@ -43,11 +43,11 @@
                       <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].title')}" th:errors="*{tasklist[__${iterStat.index}__].title}">error</span>
                     </td>
                     <td>
-                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].scheduleDate}" max="10" style="width: 100px;" class="form-control" autocomplete="off">
-                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].scheduleDate')}" th:errors="*{tasklist[__${iterStat.index}__].scheduleDate}">error</span>
+                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].scheduledDate}" max="10" style="width: 100px;" class="form-control" autocomplete="off">
+                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].scheduledDate')}" th:errors="*{tasklist[__${iterStat.index}__].scheduledDate}">error</span>
                     </td>
                     <td>
-                      <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].status}">
+                      <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].completion}">
                       <input type="text" th:field="*{tasklist[__${iterStat.index}__].description}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
                       <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].description')}" th:errors="*{tasklist[__${iterStat.index}__].description}">error</span>
                     </td>
@@ -82,21 +82,21 @@ $(function () {
 
 function setAddButtonEvent() {
 	$('#addBtn').on('click', function(){
-		$('input[name$="scheduleDate"]').datepicker('destroy');
+		$('input[name$="scheduledDate"]').datepicker('destroy');
 		var index = $("#taskList tbody").children().length;
 		var $lastRow = $("#taskList tbody tr:last");
 		var $addRow = $lastRow.clone();
 		$lastRow.after($addRow);
 		$addRow.find('input[name$="title"]').attr('id', 'tasklist' + index + '.title').attr('name', 'tasklist[' + index + '].title');
-		$addRow.find('input[name$="scheduleDate"]').attr('id', 'tasklist' + index + '.scheduleDate').attr('name', 'tasklist[' + index + '].scheduleDate');
+		$addRow.find('input[name$="scheduledDate"]').attr('id', 'tasklist' + index + '.scheduledDate').attr('name', 'tasklist[' + index + '].scheduledDate');
 		$addRow.find('input[name$="description"]').attr('id', 'tasklist' + index + '.description').attr('name', 'tasklist[' + index + '].description');
-		$addRow.find('input[name$="status"]').attr('id', 'tasklist' + index + '.status').attr('name', 'tasklist[' + index + '].status');
+		$addRow.find('input[name$="completion"]').attr('id', 'tasklist' + index + '.completion').attr('name', 'tasklist[' + index + '].completion');
 		setDatepicker();
 	});
 }
 
 function setDatepicker() {
-	$('input[name$="scheduleDate"]').datepicker({
+	$('input[name$="scheduledDate"]').datepicker({
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: '[[#{common.format.datepicker}]]'

@@ -32,7 +32,7 @@
                   <th class="text-center" style="width: 15%" th:text="#{ScheduledTaskHistory.label.id}">id</th>
                   <th class="text-center" style="width: 30%" th:text="#{ScheduledTaskHistory.label.method}">method</th>
                   <th class="text-center" style="width: 30%" th:text="#{ScheduledTaskHistory.label.message}">message</th>
-                  <th class="text-center" style="width: 25%" th:text="#{ScheduledTaskHistory.label.updatedate}">update date</th>
+                  <th class="text-center" style="width: 25%" th:text="#{ScheduledTaskHistory.label.createdDate}">created date</th>
                 </tr>
               </thead>
               <tbody th:with="dateFormat=#{common.format.datetime}">
@@ -40,7 +40,7 @@
                   <td th:text="${form.id}" class="align-middle"></td>
                   <td th:text="${form.method}" class="align-middle"></td>
                   <td th:text="${form.message}" class="align-middle"></td>
-                  <td th:text="${#temporals.format(form.updatedate, dateFormat)}">9999/99/99</td>
+                  <td th:text="${#temporals.format(form.createdDate, dateFormat)}">9999/99/99</td>
                 </tr>
               </tbody>
               </table>

@@ -32,12 +32,12 @@ public class TaskListHelper {
 	public TaskForm convertEntityToForm(TTask entity, Locale locale) {
 		String format = msg.getMessage("common.format.date", null, locale);
 		TaskForm form = new TaskForm();
-		form.setId(entity.getId());
+		form.setTaskId(entity.getTaskId());
 		form.setTitle(entity.getTitle());
-		form.setScheduleDate(entity.getScheduleDate().format(DateTimeFormatter.ofPattern(format)));
-		form.setStatus(entity.isStatus());
+		form.setScheduledDate(entity.getScheduledDate().format(DateTimeFormatter.ofPattern(format)));
+		form.setCompletion(entity.getCompletion());
 		form.setDescription(entity.getDescription());
-		form.setUserId(entity.getUserId());
+		form.setUserId(entity.getCreatedBy());
 		return form;
 	}
 
@@ -64,12 +64,11 @@ public class TaskListHelper {
 	public TTask convertFormToEntity(TaskForm form, Locale locale) {
 		String format = msg.getMessage("common.format.date", null, locale);
 		TTask entity = new TTask();
-		entity.setId(form.getId());
+		entity.setTaskId(form.getTaskId());
 		entity.setTitle(form.getTitle());
-		entity.setScheduleDate(DateUtility.parseLocalDate(form.getScheduleDate(), format));
-		entity.setStatus(form.isStatus());
+		entity.setScheduledDate(DateUtility.parseLocalDate(form.getScheduledDate(), format));
+		entity.setCompletion(form.isCompletion());
 		entity.setDescription(form.getDescription());
-		entity.setUserId(form.getUserId());
 		return entity;
 	}
 

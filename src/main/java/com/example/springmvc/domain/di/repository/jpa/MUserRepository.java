@@ -1,5 +1,6 @@
 package com.example.springmvc.domain.di.repository.jpa;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,13 +33,25 @@ public interface MUserRepository extends JpaRepository<MUser, String> {
 
 	/**
 	 * Update by task id (implementation pattern by named JPQL query).
-	 * @param userId  user id.
-	 * @param enabled true if user is valid.
+	 * @param userId       user id.
+	 * @param enabled      true if user is valid.
+	 * @param modifiedBy   last modified user id.
+	 * @param modifiedDate last modified date.
 	 * @return Number of updates.
 	 */
-	@Query("update MUser t set t.enabled = :enabled where t.userId = :userId")
+	@Query("update MUser t "
+			+ "set"
+			+ " t.enabled = :enabled,"
+			+ " t.modifiedBy = :modifiedBy,"
+			+ " t.modifiedDate = :modifiedDate "
+			+ "where"
+			+ " t.userId = :userId")
 	@Modifying // Automatic call of EntityManager#clear
-	public int setEnable(@Param("userId") String userId, @Param("enabled") boolean enabled);
+	public int setEnable(
+			@Param("userId") String userId,
+			@Param("enabled") Boolean enabled,
+			@Param("modifiedBy") String modifiedBy,
+			@Param("modifiedDate") LocalDateTime modifiedDate);
 
 	/**
 	 * Delete by user id (implementation pattern by method name).

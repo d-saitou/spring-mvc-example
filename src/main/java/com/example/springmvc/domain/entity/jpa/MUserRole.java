@@ -8,9 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.example.springmvc.domain.entity.jpa.base.AbstractAuditingBaseEntity;
 import com.example.springmvc.utility.StringUtility;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * JPA entity (table: m_user_role).
@@ -19,7 +21,8 @@ import lombok.Data;
 @Table(name = "m_user_role")
 @IdClass(MUserRolePK.class)
 @Data
-public class MUserRole implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class MUserRole extends AbstractAuditingBaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

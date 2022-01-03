@@ -52,7 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (user == null) {
 			error("User not found for login id: " + username);
 		}
-		if (!user.isEnabled()) {
+		if (!user.getEnabled()) {
 			error("Invalid user: " + username);
 		}
 
@@ -78,7 +78,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		userDetails.setUsername(user.getUserId());
 		userDetails.setDisplayname(user.getUserName());
 		userDetails.setPassword(user.getPassword());
-		userDetails.setEnabled(user.isEnabled());
+		userDetails.setEnabled(user.getEnabled());
 		userDetails.setAuthorities(AuthorityUtils.createAuthorityList(rolesArray));
 		userDetails.setSessiontimeout(user.getSessionTimeout());
 		return userDetails;

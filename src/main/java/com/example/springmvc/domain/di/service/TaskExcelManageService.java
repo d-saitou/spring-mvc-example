@@ -77,26 +77,26 @@ public class TaskExcelManageService {
 			Sheet sheet = wb.createSheet(safeName);
 			// Set header to sheet
 			row = sheet.createRow(0);
-			row.createCell(0).setCellValue(msg.getMessage("FileDownload.label.excel.id", null, locale));
+			row.createCell(0).setCellValue(msg.getMessage("FileDownload.label.excel.taskId", null, locale));
 			row.createCell(1).setCellValue(msg.getMessage("FileDownload.label.excel.title", null, locale));
-			row.createCell(2).setCellValue(msg.getMessage("FileDownload.label.excel.date", null, locale));
-			row.createCell(3).setCellValue(msg.getMessage("FileDownload.label.excel.status", null, locale));
+			row.createCell(2).setCellValue(msg.getMessage("FileDownload.label.excel.scheduledDate", null, locale));
+			row.createCell(3).setCellValue(msg.getMessage("FileDownload.label.excel.completion", null, locale));
 			row.createCell(4).setCellValue(msg.getMessage("FileDownload.label.excel.description", null, locale));
 			row.createCell(5).setCellValue(msg.getMessage("FileDownload.label.excel.userId", null, locale));
 			// Set task items to sheet
-			List<TTask> taskList = this.repo.findByUserIdEquals(userid);
+			List<TTask> taskList = this.repo.findByCreatedByEquals(userid);
 			String dateFormat = msg.getMessage("common.format.date", null, locale);
-			String status = msg.getMessage("FileDownload.label.excel.status", null, locale);
+			String completion = msg.getMessage("FileDownload.label.excel.completion", null, locale);
 			int cnt = 1;
 			for (TTask task : taskList) {
-				final String date = task.getScheduleDate().format(DateTimeFormatter.ofPattern(dateFormat));
+				final String date = task.getScheduledDate().format(DateTimeFormatter.ofPattern(dateFormat));
 				row = sheet.createRow(cnt);
-				row.createCell(0).setCellValue(task.getId().intValue());
+				row.createCell(0).setCellValue(task.getTaskId().intValue());
 				row.createCell(1).setCellValue(task.getTitle());
 				row.createCell(2).setCellValue(date);
-				row.createCell(3).setCellValue(task.isStatus() ? status : "");
+				row.createCell(3).setCellValue(task.getCompletion() ? completion : "");
 				row.createCell(4).setCellValue(task.getDescription());
-				row.createCell(5).setCellValue(task.getUserId());
+				row.createCell(5).setCellValue(task.getCreatedBy());
 				cnt++;
 			}
 			// Write to file

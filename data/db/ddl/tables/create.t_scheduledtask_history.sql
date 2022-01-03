@@ -3,7 +3,8 @@ CREATE TABLE `t_scheduledtask_history` (
   `id` int NOT NULL AUTO_INCREMENT,
   `method` varchar(30) DEFAULT NULL,
   `message` varchar(100) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `modified_date` datetime DEFAULT NULL,
  PRIMARY KEY(
   `id`
  )

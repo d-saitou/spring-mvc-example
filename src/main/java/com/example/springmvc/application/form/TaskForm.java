@@ -18,16 +18,16 @@ public class TaskForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Integer taskId;
 
 	@Size(min = 2, max = 100)
 	private String title;
 
 	@DateFormatCheckForString(format = { "uuuu/MM/dd", "MM-dd-uuuu" })
-	private String scheduleDate;
+	private String scheduledDate;
 
 	@NotNull
-	private boolean status;
+	private boolean completion;
 
 	@NotNull
 	@Size(max = 200)

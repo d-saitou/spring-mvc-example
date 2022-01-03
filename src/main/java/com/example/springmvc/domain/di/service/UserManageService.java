@@ -1,5 +1,6 @@
 package com.example.springmvc.domain.di.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -50,10 +51,12 @@ public class UserManageService {
 	/**
 	 * Update user enable / disable.
 	 * @param userMap Map(user id / enable or disable) object.
+	 * @param userId  user id.
 	 */
-	public void txChangeEnableUser(Map<String, Boolean> userMap) {
+	public void txChangeEnableUser(Map<String, Boolean> userMap, String userId) {
+		LocalDateTime now = LocalDateTime.now();
 		for (Map.Entry<String, Boolean> entry : userMap.entrySet()) {
-			userRepo.setEnable(entry.getKey(), entry.getValue());
+			userRepo.setEnable(entry.getKey(), entry.getValue(), userId, now);
 		}
 	}
 

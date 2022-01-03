@@ -1,7 +1,6 @@
 package com.example.springmvc.application.di.helper;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -63,7 +62,6 @@ public class UserRegistHelper {
 		}
 		entity.setReadonly(false);
 		entity.setEnabled(true);
-		entity.setUpdateDate(LocalDateTime.now());
 
 		return entity;
 	}

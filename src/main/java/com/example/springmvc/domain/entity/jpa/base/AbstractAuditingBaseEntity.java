@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base entity for JPA auditing (auditor and date).
@@ -16,6 +17,7 @@ import lombok.Getter;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@Setter
 public abstract class AbstractAuditingBaseEntity extends AbstractAuditingBaseDateOnlyEntity {
 
 	@CreatedBy

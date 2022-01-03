@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.springmvc.application.form.UserForm;
 import com.example.springmvc.application.form.UserListForm;
+import com.example.springmvc.config.security.UserDetailsImpl;
 import com.example.springmvc.domain.di.service.UserManageService;
 import com.example.springmvc.domain.entity.jpa.MUser;
 
@@ -44,16 +46,18 @@ public class UserListController {
 
 	/**
 	 * POST request for user list.
-	 * @param form   UserListForm.
-	 * @param result BindingResult object.
-	 * @param model  Model object.
-	 * @param locale Locate object.
+	 * @param form        UserListForm.
+	 * @param result      BindingResult object.
+	 * @param model       Model object.
+	 * @param locale      Locate object.
+	 * @param userDetails UserDetailsImpl object.
 	 * @return HTML template path.
 	 */
 	@PostMapping("/user/list")
 	public String post(
 			@Validated @ModelAttribute UserListForm form,
-			BindingResult result, Model model, Locale locale) {
+			BindingResult result, Model model, Locale locale,
+			@AuthenticationPrincipal UserDetailsImpl userDetails) {
 		if (result.hasErrors()) {
 			model.addAttribute("userListForm", form);
 		} else {
@@ -63,7 +67,7 @@ public class UserListController {
 					userMap.put(user.getUserId(), user.isEnable());
 				}
 			}
-			service.txChangeEnableUser(userMap);
+			service.txChangeEnableUser(userMap, userDetails.getUsername());
 			model.addAttribute("userListForm", getUserListForm());
 		}
 		return "content/UserList";
@@ -81,8 +85,8 @@ public class UserListController {
 					.setUserName(user.getUserName())
 					.setEmailAddress1(user.getEmailAddress1())
 					.setEmailAddress2(user.getEmailAddress2())
-					.setReadonly(user.isReadonly())
-					.setEnable(user.isEnabled()));
+					.setReadonly(user.getReadonly())
+					.setEnable(user.getEnabled()));
 		}
 		return new UserListForm().setUserList(userList);
 	}

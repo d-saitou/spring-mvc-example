@@ -15,11 +15,14 @@ CREATE TABLE `m_user` (
   `password_hint` varchar(1) DEFAULT NULL,
   `password_hint_answer` nvarchar(50) DEFAULT NULL,
   `session_timeout` int DEFAULT NULL,
-  `email_newsletter_1` bit(1) NOT NULL,
-  `email_newsletter_2` bit(1) NOT NULL,
-  `readonly` bit(1) NOT NULL,
-  `enabled` bit(1) NOT NULL,
-  `update_date` datetime DEFAULT NULL,
+  `email_newsletter_1` boolean DEFAULT NULL,
+  `email_newsletter_2` boolean DEFAULT NULL,
+  `readonly` boolean DEFAULT NULL,
+  `enabled` boolean DEFAULT NULL,
+  `created_by` varchar(10) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `modified_by` varchar(10) DEFAULT NULL,
+  `modified_date` datetime DEFAULT NULL,
  PRIMARY KEY(
   `user_id`
  )
