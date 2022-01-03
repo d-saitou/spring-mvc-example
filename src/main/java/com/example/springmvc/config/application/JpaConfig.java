@@ -1,5 +1,6 @@
 package com.example.springmvc.config.application;
 
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -8,12 +9,17 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -27,6 +33,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = AppConstants.PKG_JPA_REPOSITORY)
+@EnableJpaAuditing
 @EnableTransactionManagement
 @RequiredArgsConstructor
 public class JpaConfig {
@@ -91,6 +98,38 @@ public class JpaConfig {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(emf);
 		return transactionManager;
+	}
+
+	/**
+	 * Register the class that gets the current auditor as a bean.
+	 * @return AuditorAware object.
+	 */
+	@Bean
+	public AuditorAware<String> auditorProvider() {
+		return new SpringSecurityAuditor();
+	}
+
+	/**
+	 * Get the current auditor.
+	 */
+	@SuppressFBWarnings(value = "SIC_INNER_SHOULD_BE_STATIC")
+	public class SpringSecurityAuditor implements AuditorAware<String> {
+
+		/**
+		 * Get the current auditor with spring security.
+		 */
+		@Override
+		public Optional<String> getCurrentAuditor() {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if (authentication == null || !authentication.isAuthenticated()) {
+				return Optional.empty();
+			}
+			if (!(authentication.getPrincipal() instanceof UserDetails)) {
+				return Optional.empty();
+			}
+			return Optional.ofNullable(((UserDetails) authentication.getPrincipal()).getUsername());
+		}
+
 	}
 
 }
