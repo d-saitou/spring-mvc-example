@@ -62,10 +62,11 @@ public class UserManageService {
 
 	/**
 	 * Delete user.
-	 * @param userid user id.
+	 * @param userId user id.
 	 */
-	public void txDeleteUser(String userid) {
-		userRepo.deleteByUserIdEquals(userid);
+	public void txDeleteUser(String userId) {
+		userRepo.deleteByUserIdEquals(userId);
+		userRoleRepo.deleteByUserIdEquals(userId);
 	}
 
 }
