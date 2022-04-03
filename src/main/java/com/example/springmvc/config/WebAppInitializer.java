@@ -5,6 +5,7 @@ import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.example.springmvc.config.application.AppConfig;
@@ -60,8 +61,10 @@ public class WebAppInitializer
 	 */
 	@Override
 	protected Filter[] getServletFilters() {
-//		return new Filter[] { getCharacterEncodingFilter() };
-		return new Filter[] {};
+		return new Filter[] {
+//				getCharacterEncodingFilter(),
+				new HiddenHttpMethodFilter() // Supports put and delete in form tag using hidden tag.
+		};
 	}
 
 	/**

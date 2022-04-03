@@ -23,13 +23,19 @@ public class DateUtility {
 	 * @return LocalDate object.
 	 */
 	public static LocalDate parseLocalDate(String date, String... format) {
+		if (StringUtility.isEmpty(date)) {
+			return null;
+		}
 		LocalDate ldt = null;
 		for (String fmtStr : format) {
-			if (StringUtility.isEmpty(fmtStr)) continue;
+			if (StringUtility.isEmpty(fmtStr)) {
+				continue;
+			}
 			try {
 				ldt = LocalDate.parse(date,
 						DateTimeFormatter.ofPattern(fmtStr).withResolverStyle(ResolverStyle.STRICT));
-			} catch (Exception expected) {
+			} catch (Exception e) {
+				throw new DateTimeParseException("Failed to parse to LocalDate.", date, 0, e);
 			}
 		}
 		if (ldt == null) {

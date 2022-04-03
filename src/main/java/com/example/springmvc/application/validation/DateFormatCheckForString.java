@@ -33,6 +33,8 @@ public @interface DateFormatCheckForString {
 
 	String[] format();
 
+	boolean empty() default false;
+
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
 	@Documented

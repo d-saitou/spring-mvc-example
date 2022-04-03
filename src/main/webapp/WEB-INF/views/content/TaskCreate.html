@@ -37,19 +37,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr th:each="task, iterStat : *{tasklist}">
+                  <tr th:each="task, iterStat : *{taskList}">
                     <td>
-                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].title}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
-                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].title')}" th:errors="*{tasklist[__${iterStat.index}__].title}">error</span>
+                      <input type="text" th:field="*{taskList[__${iterStat.index}__].title}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
+                      <span class="error" th:if="${#fields.hasErrors('taskList[__${iterStat.index}__].title')}" th:errors="*{taskList[__${iterStat.index}__].title}">error</span>
                     </td>
                     <td>
-                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].scheduledDate}" max="10" style="width: 100px;" class="form-control" autocomplete="off">
-                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].scheduledDate')}" th:errors="*{tasklist[__${iterStat.index}__].scheduledDate}">error</span>
+                      <input type="text" th:field="*{taskList[__${iterStat.index}__].scheduledDate}" max="10" style="width: 100px;" class="form-control" autocomplete="off">
+                      <span class="error" th:if="${#fields.hasErrors('taskList[__${iterStat.index}__].scheduledDate')}" th:errors="*{taskList[__${iterStat.index}__].scheduledDate}">error</span>
                     </td>
                     <td>
-                      <input type="hidden" th:field="*{tasklist[__${iterStat.index}__].completion}">
-                      <input type="text" th:field="*{tasklist[__${iterStat.index}__].description}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
-                      <span class="error" th:if="${#fields.hasErrors('tasklist[__${iterStat.index}__].description')}" th:errors="*{tasklist[__${iterStat.index}__].description}">error</span>
+                      <input type="hidden" th:field="*{taskList[__${iterStat.index}__].completion}">
+                      <input type="text" th:field="*{taskList[__${iterStat.index}__].description}" max="100" style="width: 100%; min-width: 200px;" class="form-control" autocomplete="off">
+                      <span class="error" th:if="${#fields.hasErrors('taskList[__${iterStat.index}__].description')}" th:errors="*{taskList[__${iterStat.index}__].description}">error</span>
                     </td>
                   </tr>
                 </tbody>
@@ -87,10 +87,10 @@ function setAddButtonEvent() {
 		var $lastRow = $("#taskList tbody tr:last");
 		var $addRow = $lastRow.clone();
 		$lastRow.after($addRow);
-		$addRow.find('input[name$="title"]').attr('id', 'tasklist' + index + '.title').attr('name', 'tasklist[' + index + '].title');
-		$addRow.find('input[name$="scheduledDate"]').attr('id', 'tasklist' + index + '.scheduledDate').attr('name', 'tasklist[' + index + '].scheduledDate');
-		$addRow.find('input[name$="description"]').attr('id', 'tasklist' + index + '.description').attr('name', 'tasklist[' + index + '].description');
-		$addRow.find('input[name$="completion"]').attr('id', 'tasklist' + index + '.completion').attr('name', 'tasklist[' + index + '].completion');
+		$addRow.find('input[name$="title"]').attr('id', 'taskList' + index + '.title').attr('name', 'taskList[' + index + '].title');
+		$addRow.find('input[name$="scheduledDate"]').attr('id', 'taskList' + index + '.scheduledDate').attr('name', 'taskList[' + index + '].scheduledDate');
+		$addRow.find('input[name$="description"]').attr('id', 'taskList' + index + '.description').attr('name', 'taskList[' + index + '].description');
+		$addRow.find('input[name$="completion"]').attr('id', 'taskList' + index + '.completion').attr('name', 'taskList[' + index + '].completion');
 		setDatepicker();
 	});
 }

@@ -23,6 +23,8 @@ public class DateFormatCheckForStringImpl
 	@SuppressFBWarnings(value = "URF_UNREAD_FIELD")
 	private String message;
 
+	private boolean empty;
+
 	/**
 	 * Initialize.
 	 * @param constraintAnnotation Annotation interface.
@@ -30,6 +32,7 @@ public class DateFormatCheckForStringImpl
 	@Override
 	public void initialize(DateFormatCheckForString constraintAnnotation) {
 		format = constraintAnnotation.format();
+		empty = constraintAnnotation.empty();
 		message = constraintAnnotation.message();
 	}
 
@@ -41,12 +44,14 @@ public class DateFormatCheckForStringImpl
 	 */
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		boolean isValid = false;
-		// Empty check
 		if (value == null || "".equals(value)) {
-			return isValid;
+			if (empty) {
+				return true;
+			}
+			return false;
 		}
 		// Validate input values for each element of the format array
+		boolean isValid = false;
 		for (String fmtstr : format) {
 			try {
 				// Convert to LocalDate type(exceptions will occur if date does not exist)

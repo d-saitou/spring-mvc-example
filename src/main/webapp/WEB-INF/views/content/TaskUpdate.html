@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div class="button-area py-3">
-                <a th:href="@{/task/list(page=${page})}" style="text-decoration: none">
+                <a th:href="@{'/task/list/' + ${page}}" style="text-decoration: none">
                   <button type="button" class="btn btn-secondary" th:text="#{common.button.return}">Return</button>
                 </a>
                 <button type="submit" class="btn btn-primary" th:text="#{common.button.register}">Register</button>

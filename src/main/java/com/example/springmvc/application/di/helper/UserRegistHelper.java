@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.springmvc.application.form.UserRegistForm;
+import com.example.springmvc.config.AppConstants;
 import com.example.springmvc.domain.entity.jpa.MUser;
 import com.example.springmvc.utility.DateUtility;
 
@@ -22,8 +23,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserRegistHelper {
 
-	private static final String[] DATE_FORMAT = { "uuuu/MM/dd", "MM/dd/uuuu" };
-
 	private final MessageSource msg;
 
 	private final PasswordEncoder passwordEncoder;
@@ -34,7 +33,8 @@ public class UserRegistHelper {
 	 * @return MUser entity.
 	 */
 	public MUser convertFormToEntity(UserRegistForm form) {
-		final LocalDate expirationDate = DateUtility.parseLocalDate(form.getCreditExpirationDate(), DATE_FORMAT);
+		final LocalDate expirationDate = DateUtility.parseLocalDate(
+				form.getCreditExpirationDate(), AppConstants.DATE_FORMAT.toArray(new String[0]));
 
 		MUser entity = new MUser();
 		entity.setUserId(form.getUserId());

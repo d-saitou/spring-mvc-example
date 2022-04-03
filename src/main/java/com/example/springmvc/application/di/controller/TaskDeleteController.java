@@ -32,7 +32,7 @@ public class TaskDeleteController {
 			@RequestParam(name = "page", required = false) int page,
 			@PathVariable(name = "id", required = false) int id) throws ParseException {
 		service.txDeleteTask(id);
-		return "redirect:/task/list?page=" + Integer.valueOf(page);
+		return "redirect:/task/list/" + page;
 	}
 
 }

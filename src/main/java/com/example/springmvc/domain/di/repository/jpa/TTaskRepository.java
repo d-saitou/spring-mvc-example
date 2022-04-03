@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +20,8 @@ import com.example.springmvc.domain.entity.jpa.TTask;
  */
 @Repository
 //@Scope("prototype")
-public interface TTaskRepository extends JpaRepository<TTask, Integer> {
+public interface TTaskRepository
+		extends JpaRepository<TTask, Integer>, JpaSpecificationExecutor<TTask> {
 
 	/**
 	 * Select by task id (implementation pattern by named native query).
@@ -51,6 +53,8 @@ public interface TTaskRepository extends JpaRepository<TTask, Integer> {
 	 * @param scheduledDate scheduled date.
 	 * @param completion    completion status.
 	 * @param description   description.
+	 * @param modifiedBy    modified user id.
+	 * @param modifiedDate  modified date.
 	 * @return Number of updates.
 	 */
 	@Query("update TTask t "

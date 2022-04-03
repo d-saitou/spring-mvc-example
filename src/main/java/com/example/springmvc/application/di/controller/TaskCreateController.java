@@ -68,7 +68,7 @@ public class TaskCreateController {
 			String userid = userDetails.getUsername();
 			// create tasks
 			List<TTask> entities = new ArrayList<TTask>();
-			for (TaskForm task : form.getTasklist()) {
+			for (TaskForm task : form.getTaskList()) {
 				task.setUserId(userid);
 				entities.add(helper.convertFormToEntity(task, locale));
 			}
@@ -86,7 +86,7 @@ public class TaskCreateController {
 	private TaskListForm getInitialForm() {
 		List<TaskForm> tasks = new ArrayList<TaskForm>();
 		tasks.add(new TaskForm());
-		return new TaskListForm().setTasklist(tasks);
+		return new TaskListForm().setTaskList(tasks);
 	}
 
 }

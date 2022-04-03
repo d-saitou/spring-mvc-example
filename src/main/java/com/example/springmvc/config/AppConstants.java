@@ -1,6 +1,7 @@
 package com.example.springmvc.config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,6 +15,10 @@ public class AppConstants {
 
 	/** configuration : session time out. */
 	public static final int DEFAULT_SESSION_TIMEOUT = 300;
+
+	/** format : date format. */
+	public static final List<String> DATE_FORMAT =
+			Collections.unmodifiableList(Arrays.asList("uuuu/MM/dd", "MM/dd/uuuu"));
 
 	/** java package : application base. */
 	private static final String PKG_BASE = "com.example.springmvc";
@@ -80,11 +85,12 @@ public class AppConstants {
 		list.add("/file/download");
 		list.add("/task/create");
 		list.add("/task/list");
+		list.add("/task/list/*"); // paging
 		list.add("/task/delete/*");
 		list.add("/task/update"); // POST request
 		list.add("/task/update/*"); // GET request
-		list.add("/task/bulk/list");
 		list.add("/task/bulk/update");
+		list.add("/task/bulk/update/*"); // paging
 		list.add("/task/api");
 		list.add("/task/api/page");
 		list.add("/async/mail");

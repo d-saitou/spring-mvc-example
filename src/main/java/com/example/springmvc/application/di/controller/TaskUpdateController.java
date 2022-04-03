@@ -80,7 +80,7 @@ public class TaskUpdateController {
 			entity.setModifiedBy(userDetails.getUsername());
 			entity.setModifiedDate(LocalDateTime.now());
 			service.txUpdateTask(entity);
-			return "redirect:/task/list?page=" + page;
+			return "redirect:/task/list/" + page;
 		}
 	}
 

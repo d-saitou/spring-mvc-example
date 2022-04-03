@@ -1,28 +1,28 @@
 package com.example.springmvc.application.form;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.validation.Valid;
 
 import com.example.springmvc.utility.StringUtility;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * Task paging data form.
+ * A form that stores information for pagination.
  */
 @Data
-public class TaskPageForm implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class PageInfoForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Valid
-	private List<TaskForm> tasklist;
-
-	private int currentPage;
+	private int page;
 
 	private int totalPages;
+
+	private Long totalElements;
 
 	private boolean hasPreviousPage;
 
