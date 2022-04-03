@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head th:replace="fragment.html::head">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../../static/css/style.css"/>
+  <title th:text="#{header.text.title}">Spring MVC Example</title>
+</head>
+<body>
+  <!-- header -->
+  <nav th:replace="fragment.html::header"></nav>
+
+  <div class="app-flex-container-lg">
+    <!-- sidebar -->
+    <nav th:replace="fragment.html::sidebar"></nav>
+
+    <!-- main -->
+    <main class="app-main-contents">
+      <div class="d-flex justify-content-center">
+        <div class="card" style="width: 100%;">
+          <div class="card-header" th:text="#{TaskListApiPage.title}">Task List</div>
+          <div class="card-body">
+            <table id="taskList" class="table table-striped table-bordered table-hover table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th style="width: 5%" th:text="#{TaskList.label.taskId}" scope="col">id</th>
+                <th style="width: 20%" th:text="#{TaskList.label.title}" scope="col">title</th>
+                <th style="width: 10%" th:text="#{TaskList.label.scheduledDate}" scope="col">scheduledDate</th>
+                <th style="width: 10%" th:text="#{TaskList.label.completion}" scope="col">completion</th>
+                <th style="width: 50%" th:text="#{TaskList.label.description}" scope="col">description</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- javascript -->
+  <div th:replace="fragment.html::javascripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+  </div>
+  <script type="text/javascript">
+    $(function(){
+      $.ajax({
+        type     : "GET",
+        url      : "[[@{/task/api}]]",
+        dataType : "json",
+        completionCode: {
+          404: function(){ alert("Page not found."); }
+        }
+      }).done(function(data, textcompletion, jqXHR){
+        drawTaskList(data);
+      }).fail(function(data, textcompletion, errorThrown){
+        alert("completion:" + textcompletion);
+        console.log(XMLHttpRequest);
+        console.log(textcompletion);
+        console.log(errorThrown.message);
+      }).always(function(data, textcompletion, returnedObject) {
+      });
+    });
+
+    function drawTaskList(json) {
+      //var str = JSON.stringify(json);
+      //alert("success:" + str);
+      $('#taskList tbody *').remove();
+      var html = "";
+      for (i = 0; i < json.length; i++) {
+        var taskId = json[i]["taskId"];
+        var title = escapeHtml(json[i]["title"]);
+        //var scheduledDate = json[i]["scheduledDate"].replace(/-/g, "/");
+        var scheduledDate = json[i]["scheduledDate"];
+        description = escapeHtml(json[i]["description"]);
+        var completion = "";
+        if(json[i]["completion"] == true) {
+          completion = "[[#{TaskList.label.completion}]]";
+        }
+        // Generate html of task data line
+        html = '<tr>' +
+             '<td>' + taskId + '</td>' +
+             '<td>' + title + '</td>' +
+             '<td>' + scheduledDate + '</td>' +
+             '<td>' + completion + '</td>' +
+             '<td>' + description + '</td>' +
+             '</tr>'
+        // Add an element with the append method and call trigger to apply CSS
+        $("#taskList tbody").append(html).trigger("create");
+      }
+    }
+  </script>
+</body>
+</html>

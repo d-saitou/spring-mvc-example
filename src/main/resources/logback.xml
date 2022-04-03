@@ -90,7 +90,7 @@
 	<logger name="org.hibernate" level="warn" />
 	<logger name="org.jboss" level="warn" />
 	<logger name="com.zaxxer" level="warn" />
-	<logger name="com.example.springmvc" level="debug" />
+	<logger name="com.example.spring" level="debug" />
 
 <!-- Others Setting-->
 

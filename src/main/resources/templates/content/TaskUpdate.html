@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head th:replace="fragment.html::head">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../../static/css/style.css"/>
+  <title th:text="#{header.text.title}">Spring MVC Example</title>
+</head>
+<body>
+  <!-- header -->
+  <nav th:replace="fragment.html::header"></nav>
+
+  <div class="app-flex-container-lg">
+    <!-- sidebar -->
+    <nav th:replace="fragment.html::sidebar"></nav>
+
+    <!-- main -->
+    <main class="app-main-contents">
+      <div class="d-flex justify-content-center">
+        <div class="card" style="width: 100%;">
+          <div class="card-header" th:text="#{TaskUpdate.title}">Task create</div>
+          <div class="card-body">
+            <form id="taskForm" th:action="@{/task/update}" th:object="${taskForm}" method="post">
+              <input type="hidden" name="page" th:value="${page}">
+              <input type="hidden" th:field="*{taskId}">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="title" th:text="#{TaskList.label.title}">User ID:</label>
+                  <input class="form-control" type="text" th:field="*{title}">
+                  <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">error</div>
+                </div>
+              </div>
+              <div class="form-row align-items-center">
+                <div class="form-group col-md-4">
+                  <label for="dirthday" th:text="#{TaskList.label.scheduledDate}">Birthday:</label>
+                  <input class="form-control" type="text" th:field="*{scheduledDate}" autocomplete="off"/>
+                  <div class="error" th:if="${#fields.hasErrors('scheduledDate')}" th:errors="*{scheduledDate}">error</div>
+                </div>
+                <div class="form-group col-md-1"></div>
+                <div class="form-group col-md-4">
+                  <div class="form-check-inline">
+                    <input class="form-check-input" type="checkbox" th:id="${#ids.seq('completion')}" th:field="*{completion}" value="true">
+                    <label class="form-check-label" th:for="${#ids.prev('completion')}" th:text="#{TaskList.label.completion}">complete</label>
+                  </div>
+                  <div class="error" th:if="${#fields.hasErrors('completion')}" th:errors="*{completion}">error</div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="description" th:text="#{TaskList.label.description}">User ID:</label>
+                  <input class="form-control" type="text" th:field="*{description}">
+                  <div class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">error</div>
+                </div>
+              </div>
+              <div class="button-area py-3">
+                <a th:href="@{'/task/list/' + ${page}}" style="text-decoration: none">
+                  <button type="button" class="btn btn-secondary" th:text="#{common.button.return}">Return</button>
+                </a>
+                <button type="submit" class="btn btn-primary" th:text="#{common.button.register}">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- javascript -->
+  <div th:replace="fragment.html::javascripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+  </div>
+<script>
+$(function () {
+	$('input[name$="scheduledDate"]').datepicker({
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: '[[#{common.format.datepicker}]]'
+	});
+});
+</script>
+</body>
+</html>

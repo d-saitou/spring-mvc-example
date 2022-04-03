@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  th:with="lang=${#locale.language}" th:lang="${lang}">
+<head th:replace="fragment.html::head">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../../static/css/style.css"/>
+  <title th:text="#{header.text.title}">Spring MVC Example</title>
+</head>
+<body>
+  <!-- header -->
+  <nav class="navbar app-nav">
+    <span class="navbar-brand" th:text="#{header.text.title}">Spring MVC Example</span>
+  </nav>
+
+  <main class="app-main-contents">
+    <div class="d-flex justify-content-center">
+      <div class="card" style="width: 60rem;">
+        <div class="card-header" th:text="#{UserRegist.title}">User registration</div>
+        <div class="card-body">
+          <form th:action="@{/user/regist}" th:object="${userRegistForm}" action="#" method="post">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="userId" th:text="#{UserRegist.label.userId}">User ID:</label>
+                <input class="form-control" type="text" th:field="*{userId}">
+                <div class="error" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">error</div>
+              </div>
+              <div class="form-group col-md-8">
+                <label for="userName" th:text="#{UserRegist.label.userName}">User name:</label>
+                <input class="form-control" type="text" th:field="*{userName}">
+                <div class="error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="password" th:text="#{UserRegist.label.password}">Password:</label>
+                <input class="form-control" type="password" th:field="*{password}">
+                <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error</div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="retypePassword" th:text="#{UserRegist.label.retypepassword}">Retype password:</label>
+                <input class="form-control" type="password" th:field="*{retypePassword}">
+                <div class="error" th:if="${#fields.hasErrors('retypePassword')}" th:errors="*{retypePassword}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="emailAddress1" th:text="#{UserRegist.label.emailAddress1}">Mail address 1:</label>
+                <input class="form-control" type="text" th:field="*{emailAddress1}">
+                <div class="error" th:if="${#fields.hasErrors('emailAddress1')}" th:errors="*{emailAddress1}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="emailAddress2" th:text="#{UserRegist.label.emailAddress2}">Mail address 2:</label>
+                <input class="form-control" type="text" th:field="*{emailAddress2}">
+                <div class="error" th:if="${#fields.hasErrors('emailAddress2')}" th:errors="*{emailAddress2}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label th:text="#{UserRegist.label.gender}">Gender:</label><br>
+                <div class="form-check-inline" th:each="item : ${genderMap}">
+                  <input class="form-check-input" type="radio" th:field="*{gender}" th:value="${item.value}"/>
+                  <label class="form-check-label" th:for="${#ids.prev('gender')}" th:text="${item.key}"></label>
+                </div>
+                <div class="error" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">error</div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="dateOfBirth" th:text="#{UserRegist.label.dateOfBirth}">Birthday:</label>
+                <input class="form-control" type="text" th:field="*{dateOfBirth}" autocomplete="off"/>
+                <div class="error" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">error</div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="nationality" th:text="#{UserRegist.label.nationality}">Country:</label>
+                <select class="form-control" th:field="*{nationality}" size="1" multiple>
+                  <option th:each="item : ${nationalityMap}" th:value="${item.value}" th:text="${item.key}">pulldown</option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="address" th:text="#{UserRegist.label.address}">Address:</label>
+                <input class="form-control" type="text" th:field="*{address}">
+                <div class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="creditCardNo" th:text="#{UserRegist.label.creditCardNo}">Credit card No:</label>
+                <input class="form-control" type="text" th:field="*{creditCardNo}">
+                <div class="error" th:if="${#fields.hasErrors('creditCardNo')}" th:errors="*{creditCardNo}">error</div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="creditExpirationDate" th:text="#{UserRegist.label.creditExpirationDate}">Card expiration date:</label>
+                <input class="form-control" type="text" th:field="*{creditExpirationDate}" autocomplete="off"/>
+                <div class="error" th:if="${#fields.hasErrors('creditExpirationDate')}" th:errors="*{creditExpirationDate}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-5">
+                <label for="passwordHint" th:text="#{UserRegist.label.passwordHint}">Password hint:</label>
+                <select class="form-control" th:field="*{passwordHint}">
+                  <option value="">-</option>
+                  <option th:each="item : ${passwordHintMap}" th:value="${item.value}" th:text="${item.key}">pulldown</option>
+                </select>
+                <div class="error" th:if="${#fields.hasErrors('passwordHint')}" th:errors="*{passwordHint}">error</div>
+              </div>
+              <div class="form-group col-md-7">
+                <label for="passwordHintAnswer" th:text="#{UserRegist.label.passwordHintAnswer}">Answer:</label>
+                <textarea class="form-control" th:field="*{passwordHintAnswer}" rows="1"></textarea>
+                <div class="error" th:if="${#fields.hasErrors('passwordHintAnswer')}" th:errors="*{passwordHintAnswer}">error</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="sessionTimeout" th:text="#{UserRegist.label.sessionTimeout}">Auto logout (sec):</label>
+                <input class="form-control" type="text" th:field="*{sessionTimeout}">
+                <div class="error" th:if="${#fields.hasErrors('sessionTimeout')}" th:errors="*{sessionTimeout}">error</div>
+              </div>
+              <div class="form-group col-md-8">
+                <label th:text="#{UserRegist.label.emailNewsletter}">Mail magazine:</label><br>
+                <div class="form-check-inline" th:each="item : ${emailNewsletterMap}">
+                  <input class="form-check-input" type="checkbox" th:field="*{emailNewsletter}" th:value="${item.value}"/>
+                  <label class="form-check-label" th:for="${#ids.prev('emailNewsletter')}" th:text="${item.key}">Receive with email address</label>
+                </div>
+                <div class="error" th:if="${#fields.hasErrors('emailNewsletter')}" th:errors="*{emailNewsletter}">error</div>
+              </div>
+            </div>
+            <br>
+            <div class="form-row justify-content-center">
+              <div class="form-check-inline">
+                <input class="form-check-input" type="checkbox" th:id="${#ids.seq('agreeTeams')}" th:field="*{agreeTeams}" value="true">
+                <label class="form-check-label" th:for="${#ids.prev('agreeTeams')}" th:text="#{UserRegist.label.agree}">Agree to Terms.</label>
+              </div>
+              <div class="error" th:if="${#fields.hasErrors('agreeTeams')}" th:errors="*{agreeTeams}">error</div>
+            </div>
+            <br>
+            <div class="button-area pb-3">
+              <a class="btn btn-secondary" th:href="@{/login}" th:text="#{common.button.return}">Return</a>
+              <button type="submit" class="btn btn-primary" th:text="#{common.button.register}">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- javascript -->
+  <div th:replace="fragment.html::javascripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+  </div>
+<script>
+$(function () {
+	$('#dateOfBirth').datepicker({
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: 'yy/mm/dd'
+	});
+	$('#creditExpirationDate').datepicker({
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: '[[#{common.format.datepicker}]]'
+	});
+});
+</script>
+</body>
+</html>
